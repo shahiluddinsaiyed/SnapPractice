@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam - SnapPractice</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="exam-page">
+  <header class="exam-topbar">
+    <div class="brand"><span>SP</span> SnapPractice</div>
+    <div class="exam-title" id="examTitle">Mock Test</div>
+    <div class="timer-wrap">
+      <small>TIME LEFT</small>
+      <strong id="timer">60:00</strong>
+    </div>
+  </header>
+
+  <div class="exam-layout">
+    <aside class="exam-sidebar">
+      <button class="mobile-section-btn" id="sectionMenuBtn">☰ Sections</button>
+      <div id="sectionList" class="section-list"></div>
+
+      <div class="palette-box">
+        <h3>Question Navigation</h3>
+        <div class="legend">
+          <span><i class="answered"></i> Answered</span>
+          <span><i class="review"></i> Review</span>
+          <span><i class="unvisited"></i> Not visited</span>
+        </div>
+        <div id="palette" class="palette"></div>
+      </div>
+    </aside>
+
+    <main class="question-area">
+      <div class="question-head">
+        <div>
+          <span class="section-label" id="currentSection">General English</span>
+          <h2>Question <span id="questionNumber">1</span></h2>
+        </div>
+        <button class="change-section" id="changeSectionBtn">Change Section</button>
+      </div>
+
+      <div class="question-card">
+        <div class="question-meta">
+          <span id="questionCounter">1 of 60</span>
+          <span id="marksInfo">+1 / -0.25</span>
+        </div>
+        <div id="questionText" class="question-text"></div>
+        <div id="options" class="options"></div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn secondary" id="prevBtn">← Previous</button>
+        <div class="middle-actions">
+          <button class="btn light" id="clearBtn">Clear Response</button>
+          <button class="btn review-btn" id="reviewBtn">Mark for Review</button>
+        </div>
+        <button class="btn primary" id="nextBtn">Save & Next →</button>
+        <button class="btn submit-btn" id="submitBtn">Submit Test</button>
+      </div>
+    </main>
+  </div>
+
+  <div id="sectionModal" class="modal hidden">
+    <div class="modal-card">
+      <button class="close-modal" id="closeModal">×</button>
+      <h2>Change Section</h2>
+      <p>By changing section, you will be shifted to a new section.</p>
+      <div id="modalSections"></div>
+      <div class="modal-footer">
+        <button class="btn secondary" id="cancelModal">Cancel</button>
+        <button class="btn primary" id="confirmSection">Change Section</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="submitModal" class="modal hidden">
+    <div class="modal-card small">
+      <h2>Submit Test?</h2>
+      <p>Are you sure you want to submit your test? You will not be able to change your answers after submission.</p>
+      <div class="modal-footer">
+        <button class="btn secondary" id="cancelSubmit">Continue Test</button>
+        <button class="btn submit-btn" id="confirmSubmit">Submit Test</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/test.js"></script>
+</body>
+</html>

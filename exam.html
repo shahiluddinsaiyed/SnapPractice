@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Test Environment</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none; /* Prevent text selection */
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 700px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .hidden { display: none; }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+        }
+        .btn:hover { background-color: #0056b3; }
+        .option-label {
+            display: block;
+            background: #f8f9fa;
+            border: 1px solid #ced4da;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .option-label:hover { background: #e9ecef; }
+        .warning-text { color: #dc3545; font-size: 14px; margin-top: 10px; }
+        .score-card {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .review-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .correct-ans { color: #28a745; font-weight: bold; }
+        .wrong-ans { color: #dc3545; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- START SCREEN -->
+    <div id="start-screen">
+        <h2>Online Examination</h2>
+        <p>Instructions:</p>
+        <ul>
+            <li>The test will automatically open in **Full-Screen Mode**.</li>
+            <li>Right-click, Copy, and Paste are disabled.</li>
+            <li>Switching tabs will trigger a security violation warning.</li>
+        </ul>
+        <button class="btn" onclick="startTest()">Start Test</button>
+    </div>
+
+    <!-- TEST SCREEN -->
+    <div id="test-screen" class="hidden">
+        <div id="warning-box" class="warning-text"></div>
+        <h3 id="question-text"></h3>
+        <div id="options-container"></div>
+        <button class="btn" onclick="nextQuestion()">Next Question</button>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div id="result-screen" class="hidden">
+        <h2>Test Results</h2>
+        <div class="score-card">
+            <p><strong>Total Questions:</strong> <span id="res-total"></span></p>
+            <p><strong>Attempted:</strong> <span id="res-attempted"></span></p>
+            <p><strong>Score:</strong> <span id="res-score"></span> / <span id="res-max-score"></span></p>
+            <p><strong>Accuracy:</strong> <span id="res-accuracy"></span>%</p>
+        </div>
+        <h3>Question Review</h3>
+        <div id="review-container"></div>
+    </div>
+</div>
+
+<script>
+const questions = [
+    {
+        q: "1. What is the capital of France?",
+        options: ["London", "Berlin", "Paris", "Madrid"],
+        answer: 2
+    },
+    {
+        q: "2. Which programming language runs in the browser?",
+        options: ["Java", "C", "Python", "JavaScript"],
+        answer: 3
+    },
+    {
+        q: "3. What is 5 + 7?",
+        options: ["10", "12", "14", "13"],
+        answer: 1
+    }
+];
+
+let currentQ = 0;
+let userAnswers = [];
+let tabSwitchCount = 0;
+
+// Security Features: Disable Copy, Cut, Paste, Right Click
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('cut', e => e.preventDefault());
+document.addEventListener('paste', e => e.preventDefault());
+
+// Monitor Tab Switching
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden && !document.getElementById("test-screen").classList.contains("hidden")) {
+        tabSwitchCount++;
+        document.getElementById("warning-box").innerText = `Warning: Tab switch detected (${tabSwitchCount} times). Stay on this page!`;
+    }
+});
+
+function startTest() {
+    // Enable Full Screen
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+    }
+
+    document.getElementById("start-screen").classList.add("hidden");
+    document.getElementById("test-screen").classList.remove("hidden");
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = questions[currentQ];
+    document.getElementById("question-text").innerText = qData.q;
+    const optContainer = document.getElementById("options-container");
+    optContainer.innerHTML = "";
+
+    qData.options.forEach((opt, idx) => {
+        const label = document.createElement("label");
+        label.className = "option-label";
+        label.innerHTML = `
+            <input type="radio" name="option" value="${idx}"> ${opt}
+        `;
+        optContainer.appendChild(label);
+    });
+}
+
+function nextQuestion() {
+    const selected = document.querySelector('input[name="option"]:checked');
+    userAnswers.push(selected ? parseInt(selected.value) : null);
+
+    currentQ++;
+    if (currentQ < questions.length) {
+        loadQuestion();
+    } else {
+        finishTest();
+    }
+}
+
+function finishTest() {
+    // Exit Fullscreen
+    if (document.exitFullscreen && document.fullscreenElement) {
+        document.exitFullscreen();
+    }
+
+    document.getElementById("test-screen").classList.add("hidden");
+    document.getElementById("result-screen").classList.remove("hidden");
+
+    let score = 0;
+    let attempted = 0;
+    const reviewContainer = document.getElementById("review-container");
+    reviewContainer.innerHTML = "";
+
+    questions.forEach((q, idx) => {
+        const userAns = userAnswers[idx];
+        const isCorrect = userAns === q.answer;
+
+        if (userAns !== null) attempted++;
+        if (isCorrect) score++;
+
+        const revItem = document.createElement("div");
+        revItem.className = "review-item";
+        
+        let ansStatus = "";
+        if (userAns === null) {
+            ansStatus = `<span class="wrong-ans">Unattempted</span>`;
+        } else if (isCorrect) {
+            ansStatus = `<span class="correct-ans">Correct</span>`;
+        } else {
+            ansStatus = `<span class="wrong-ans">Incorrect</span>`;
+        }
+
+        revItem.innerHTML = `
+            <p><strong>${q.q}</strong> - ${ansStatus}</p>
+            <p>Your Answer: ${userAns !== null ? q.options[userAns] : 'None'}</p>
+            <p>Correct Answer: <span class="correct-ans">${q.options[q.answer]}</span></p>
+        `;
+        reviewContainer.appendChild(revItem);
+    });
+
+    const accuracy = attempted > 0 ? ((score / attempted) * 100).toFixed(2) : 0;
+
+    document.getElementById("res-total").innerText = questions.length;
+    document.getElementById("res-attempted").innerText = attempted;
+    document.getElementById("res-score").innerText = score;
+    document.getElementById("res-max-score").innerText = questions.length;
+    document.getElementById("res-accuracy").innerText = accuracy;
+}
+</script>
+
+</body>
+</html>

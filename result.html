@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Result - SnapPractice</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span>SP</span> SnapPractice</div>
+    <a class="home-link" href="index.html">← All Tests</a>
+  </header>
+
+  <main class="container result-container">
+    <section class="result-hero">
+      <p class="eyebrow">TEST COMPLETED</p>
+      <h1 id="resultTitle">Your Result</h1>
+      <div class="score-circle">
+        <strong id="score">0</strong>
+        <span id="totalMarks">/ 0</span>
+      </div>
+      <p id="resultMessage"></p>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat"><span>Correct</span><strong id="correct">0</strong></div>
+      <div class="stat"><span>Incorrect</span><strong id="incorrect">0</strong></div>
+      <div class="stat"><span>Unattempted</span><strong id="unattempted">0</strong></div>
+      <div class="stat"><span>Accuracy</span><strong id="accuracy">0%</strong></div>
+      <div class="stat"><span>Time Taken</span><strong id="timeTaken">00:00</strong></div>
+    </section>
+
+    <section class="result-section">
+      <h2>Section-wise Performance</h2>
+      <div id="sectionResults" class="section-results"></div>
+    </section>
+
+    <div class="result-actions">
+      <a href="index.html" class="btn secondary">Back to Tests</a>
+      <button class="btn primary" onclick="location.href='index.html'">Take Another Test</button>
+    </div>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/result.js"></script>
+</body>
+</html>
