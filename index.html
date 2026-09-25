@@ -4,154 +4,207 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SNAP Exam & Question Portal</title>
+  <!-- Google Fonts for Modern Aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #1e3a8a;
-      --primary-light: #3b82f6;
-      --secondary: #059669;
+      --primary: #4f46e5;
+      --primary-light: #6366f1;
+      --primary-hover: #4338ca;
+      --secondary: #10b981;
+      --secondary-hover: #059669;
       --bg: #f8fafc;
       --card: #ffffff;
-      --text: #0f172a;
+      --text: #1e293b;
       --text-muted: #64748b;
       --border: #e2e8f0;
-      --danger: #dc2626;
+      --danger: #ef4444;
+      --danger-hover: #dc2626;
+      --success-bg: #f0fdf4;
+      --danger-bg: #fef2f2;
+      --ring: rgba(99, 102, 241, 0.2);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
       background-color: var(--bg);
       color: var(--text);
-      line-height: 1.5;
-      padding: 20px;
+      line-height: 1.6;
+      padding: 30px 20px;
+      -webkit-font-smoothing: antialiased;
     }
 
     .container {
-      max-width: 1000px;
+      max-width: 1040px;
       margin: 0 auto;
     }
 
     header {
       text-align: center;
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid var(--border);
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
     }
 
     h1 {
       color: var(--primary);
-      margin-bottom: 6px;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      font-weight: 500;
     }
 
     .mode-switch {
       display: flex;
       justify-content: center;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 28px;
     }
 
     .mode-btn {
-      padding: 10px 20px;
-      border: 2px solid var(--primary);
-      background: white;
-      color: var(--primary);
+      padding: 11px 24px;
+      border: 2px solid var(--border);
+      background: var(--card);
+      color: var(--text-muted);
       font-weight: 600;
-      border-radius: 6px;
+      font-size: 0.95rem;
+      border-radius: 10px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .mode-btn:hover {
+      border-color: var(--primary-light);
+      color: var(--primary);
     }
 
     .mode-btn.active {
       background: var(--primary);
+      border-color: var(--primary);
       color: white;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
     }
 
     /* PRACTICE MODE STYLES */
     .controls {
       display: flex;
-      gap: 12px;
+      gap: 16px;
       flex-wrap: wrap;
       margin-bottom: 24px;
       background: var(--card);
-      padding: 16px;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -2px rgba(0,0,0,0.02);
     }
 
     .control-group {
       display: flex;
       flex-direction: column;
       flex: 1;
-      min-width: 180px;
+      min-width: 200px;
     }
 
     label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 4px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
       color: var(--text-muted);
     }
 
     select, input {
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
       font-size: 0.95rem;
+      color: var(--text);
+      background-color: var(--card);
       outline: none;
+      transition: all 0.2s ease;
+    }
+
+    select:hover, input:hover {
+      border-color: #cbd5e1;
     }
 
     select:focus, input:focus {
-      border-color: var(--primary-light);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--ring);
     }
 
     .question-card {
       background: var(--card);
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 16px;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 18px;
       border: 1px solid var(--border);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -2px rgba(0,0,0,0.02);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .question-card:hover {
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.04), 0 4px 6px -4px rgba(0,0,0,0.02);
     }
 
     .question-header {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 12px;
+      align-items: center;
+      margin-bottom: 14px;
       font-size: 0.85rem;
       color: var(--text-muted);
       font-weight: 600;
     }
 
     .badge {
-      background: #eff6ff;
-      color: var(--primary-light);
-      padding: 2px 8px;
-      border-radius: 4px;
+      background: #eef2ff;
+      color: var(--primary);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.8rem;
     }
 
     .question-text {
       font-size: 1.05rem;
-      font-weight: 500;
-      margin-bottom: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 18px;
       white-space: pre-line;
+      line-height: 1.5;
     }
 
     .options-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
     }
 
     .option-item {
-      padding: 10px 14px;
-      background: #f1f5f9;
-      border-radius: 6px;
+      padding: 12px 16px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
       font-size: 0.95rem;
+      color: var(--text);
+      font-weight: 500;
     }
 
     /* REAL EXAM MODE STYLES */
@@ -162,37 +215,50 @@
     .exam-header {
       background: var(--primary);
       color: white;
-      padding: 16px;
-      border-radius: 8px 8px 0 0;
+      padding: 20px 24px;
+      border-radius: 14px 14px 0 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
+    #examTitle {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
     .timer-box {
-      background: #ef4444;
-      padding: 6px 14px;
-      border-radius: 6px;
+      background: var(--danger);
+      padding: 8px 16px;
+      border-radius: 8px;
       font-weight: 700;
       font-size: 1.1rem;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     .section-tabs {
       display: flex;
-      background: #e2e8f0;
+      background: #f1f5f9;
       border-bottom: 1px solid var(--border);
+      padding: 0 4px;
     }
 
     .section-tab {
       flex: 1;
-      padding: 12px;
+      padding: 14px;
       text-align: center;
       background: none;
       border: none;
       font-weight: 600;
+      font-size: 0.95rem;
       cursor: pointer;
       color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+
+    .section-tab:hover {
+      color: var(--text);
     }
 
     .section-tab.active {
@@ -203,64 +269,185 @@
 
     .exam-body {
       background: var(--card);
-      padding: 24px;
+      padding: 28px;
       border: 1px solid var(--border);
       border-top: none;
-      min-height: 380px;
+      border-radius: 0 0 14px 14px;
+      min-height: 420px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
     }
 
     .exam-option-label {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px;
+      gap: 12px;
+      padding: 14px 16px;
       background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      margin-bottom: 10px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 12px;
       cursor: pointer;
-      transition: background 0.2s;
+      font-weight: 500;
+      transition: all 0.2s ease;
     }
 
     .exam-option-label:hover {
       background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .exam-option-label input[type="radio"] {
+      accent-color: var(--primary);
+      width: 18px;
+      height: 18px;
     }
 
     .exam-footer {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px;
-      padding-top: 16px;
+      align-items: center;
+      margin-top: 24px;
+      padding-top: 20px;
       border-top: 1px solid var(--border);
     }
 
     .btn {
-      padding: 10px 18px;
-      border-radius: 6px;
+      padding: 11px 20px;
+      border-radius: 8px;
       border: none;
       font-weight: 600;
+      font-size: 0.95rem;
       cursor: pointer;
+      transition: all 0.2s ease;
     }
 
-    .btn-secondary { background: #e2e8f0; color: var(--text); }
-    .btn-primary { background: var(--primary-light); color: white; }
-    .btn-success { background: var(--secondary); color: white; }
+    .btn-secondary { 
+      background: #f1f5f9; 
+      color: var(--text); 
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { 
+      background: #e2e8f0; 
+    }
+
+    .btn-primary { 
+      background: var(--primary); 
+      color: white; 
+      box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+    }
+    .btn-primary:hover { 
+      background: var(--primary-hover); 
+    }
+
+    .btn-success { 
+      background: var(--secondary); 
+      color: white; 
+      box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+    }
+    .btn-success:hover { 
+      background: var(--secondary-hover); 
+    }
 
     .no-results {
       text-align: center;
-      padding: 40px;
+      padding: 50px;
       color: var(--text-muted);
+      background: var(--card);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      font-weight: 500;
     }
 
     .exam-setup {
       background: var(--card);
-      padding: 24px;
-      border-radius: 8px;
+      padding: 40px 24px;
+      border-radius: 14px;
       border: 1px solid var(--border);
       text-align: center;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+    }
+
+    .exam-setup h2 {
+      font-size: 1.75rem;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    /* RESULT & SCORECARD STYLES */
+    .scorecard-container {
+      background: var(--card);
+      padding: 32px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+    }
+    .score-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    .score-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .score-card h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .score-card .val {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .review-item {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 14px;
+    }
+    .review-item.correct {
+      border-left: 5px solid var(--secondary);
+      background: var(--success-bg);
+    }
+    .review-item.incorrect {
+      border-left: 5px solid var(--danger);
+      background: var(--danger-bg);
+    }
+    .review-item.unattempted {
+      border-left: 5px solid var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 15px 10px;
+      }
+      .controls {
+        padding: 15px;
+      }
+      .exam-footer {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .exam-footer > div {
+        display: flex;
+        gap: 8px;
+        width: 100%;
+        justify-content: center;
+      }
+      .exam-footer button {
+        flex: 1;
+      }
     }
   </style>
 </head>
@@ -314,8 +501,8 @@
   <div id="examContainer">
     <div id="examSetup" class="exam-setup">
       <h2>Simulate SNAP Test</h2>
-      <p style="margin: 10px 0 20px; color: var(--text-muted);">60 Minutes | 60 Questions | Real-time Timer</p>
-      <div class="control-group" style="max-width: 300px; margin: 0 auto 20px;">
+      <p style="margin: 8px 0 24px; color: var(--text-muted); font-weight: 500;">60 Minutes | 60 Questions | Real-time Timer</p>
+      <div class="control-group" style="max-width: 320px; margin: 0 auto 24px; text-align: left;">
         <label for="examYearSelect">Select Paper Year</label>
         <select id="examYearSelect">
           <option value="2025">SNAP 2025 Paper</option>
@@ -359,6 +546,36 @@
         </div>
       </div>
     </div>
+
+    <!-- RESULT / SCORECARD SECTION -->
+    <div id="examResultView" style="display: none;" class="scorecard-container">
+      <h2 style="margin-bottom: 20px; color: var(--primary); font-size: 1.5rem;">Test Scorecard & Analysis</h2>
+      <div class="score-summary">
+        <div class="score-card">
+          <h3>Total Score</h3>
+          <div class="val" id="resTotalScore">0 / 60</div>
+        </div>
+        <div class="score-card">
+          <h3>Correct Answers</h3>
+          <div class="val" id="resCorrect" style="color: var(--secondary);">0</div>
+        </div>
+        <div class="score-card">
+          <h3>Incorrect Answers</h3>
+          <div class="val" id="resIncorrect" style="color: var(--danger);">0</div>
+        </div>
+        <div class="score-card">
+          <h3>Time Taken</h3>
+          <div class="val" id="resTimeTaken">00:00</div>
+        </div>
+      </div>
+
+      <h3 style="margin-bottom: 14px; font-size: 1.1rem; color: var(--text);">Detailed Question Review</h3>
+      <div id="reviewContainer"></div>
+      
+      <div style="text-align: center; margin-top: 28px;">
+        <button class="btn btn-primary" onclick="resetToExamSetup()">Take Another Test / Retake</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -366,274 +583,274 @@
 const snapPapersData = {
   "2022": {
     "VARC": [
-      { id: "Q1", question: "Which of the following words has a suffix appended to it?", options: ["(a) Frequently", "(b) Often", "(c) Hydrophobia", "(d) Debunk"] },
-      { id: "Q2", question: "Fill in the blanks with the appropriate prepositions:\nThe book that has been recently brought _____ provides insight into bringing _____ children.", options: ["(a) up, up", "(b) in, out", "(c) out, up", "(d) down, in"] },
-      { id: "Q3", question: "Fill in the blanks with the appropriate conjunction:\nThis can prove to be a difficult task for a leader unfamiliar with building teams _____.", options: ["(a) yet", "(b) not", "(c) until", "(d) but"] },
-      { id: "Q4", question: "Given below are four lines from the poem 'Morituri Salutamus':\nLine 1: Something remains for us to do or dare;\nLine 2: Even the oldest tree some fruit may bear;\nLine 3: And as the evening twilight fades away\nLine 4: The sky is filled with stars, invisible by day.\nWhich of the lines follows the most standard word order?", options: ["(a) Line 1", "(b) Line 2", "(c) Line 3", "(d) Line 4"] },
-      { id: "Q5", question: "Which of the following is a compound word?", options: ["(a) Hold", "(b) Scaffold", "(c) Unsolved", "(d) Threshold"] },
-      { id: "Q6", question: "Which of the following is the most appropriate synonym of the word underlined below?\nFerguson is convincing because of her extensive use of detail, the perspicacity of her observations, and the scholarly care that she takes in the construction of her argument.", options: ["(a) Clarity", "(b) Cleverness", "(c) Accuracy", "(d) Acuity"] },
-      { id: "Q7", question: "Fill in the blank with the appropriate adjective/adverb:\nMy mother worked _____ despite her fluctuating health condition.", options: ["(a) tiresome", "(b) tiring", "(c) tirelessly", "(d) tired"] },
-      { id: "Q8", question: "Which of the following gives the meaning of the underlined idiom?\nThe politician managed to complete the project in the teeth of cynicism from his constituency.", options: ["(a) stiff opposition", "(b) indifference", "(c) having humour", "(d) appreciation"] },
-      { id: "Q9", question: "Convert the following sentence into the tense given in brackets:\nPeople think that globalization is a recent phenomenon. (Past Perfect)", options: ["(a) People thought that globalization was a recent phenomenon.", "(b) People had thought that globalization has been a recent phenomenon.", "(c) People were thinking that globalization was a recent phenomenon.", "(d) People have been thinking that globalization will be a recent phenomenon."] },
-      { id: "Q10", question: "Change the voice of the following sentence:\nBy the time you reach auditorium, the pianist would have finished the rendition.", options: ["(a) By the time auditorium is reached by you, the pianist would have finished to rendition.", "(b) By the time you reach auditorium, the rendition would have finished the pianist.", "(c) By the time auditorium is reached by you, the pianist will have finished the rendition.", "(d) By the time you reach auditorium, the rendition would have been finished by the pianist."] },
-      { id: "Q11", question: "Fill in the blanks with the appropriate words:\nThe wound of the _____ takes much time to _____.", options: ["(a) heal, heel", "(b) heel, hail", "(c) heel, hall", "(d) heel, heal"] },
-      { id: "Q12", question: "Refer to the lines below:\nLine 1: May I come in, Sir?\nLine 2: Yes, please have a seat, Arun.\nLine 3: Sir, I could not finish this project in time.\nLine 4: But you ought to stick to deadlines, Arun.\nWhich of the lines uses a modal verb seeking approval?", options: ["(a) Line 1", "(b) Line 2", "(c) Line 3", "(d) Line 4"] },
-      { id: "Q13", question: "Fill in the blank with the correct preposition:\n_____, please find the cheque enclosed.", options: ["(a) On date", "(b) According", "(c) As per the rules", "(d) Accordance"] },
-      { id: "Q14", question: "Fill in the blank with the appropriate option:\nThere is nothing as refreshing as _____ sleep.", options: ["(a) long", "(b) lengthy", "(c) deep", "(d) short"] },
-      { id: "Q15", question: "Which of the following is the correct meaning of the proverb:\nA new broom sweeps clean.", options: ["(a) Old brooms are useless.", "(b) We should frequently buy new brooms.", "(c) Cleanliness is essential to our well being.", "(d) A newly appointed person takes actions that are noticeable."] }
+      { id: "Q1", question: "Which of the following words has a suffix appended to it?", options: ["(a) Frequently", "(b) Often", "(c) Hydrophobia", "(d) Debunk"], answer: 0 },
+      { id: "Q2", question: "Fill in the blanks with the appropriate prepositions:\nThe book that has been recently brought _____ provides insight into bringing _____ children.", options: ["(a) up, up", "(b) in, out", "(c) out, up", "(d) down, in"], answer: 2 },
+      { id: "Q3", question: "Fill in the blanks with the appropriate conjunction:\nThis can prove to be a difficult task for a leader unfamiliar with building teams _____.", options: ["(a) yet", "(b) not", "(c) until", "(d) but"], answer: 0 },
+      { id: "Q4", question: "Given below are four lines from the poem 'Morituri Salutamus':\nLine 1: Something remains for us to do or dare;\nLine 2: Even the oldest tree some fruit may bear;\nLine 3: And as the evening twilight fades away\nLine 4: The sky is filled with stars, invisible by day.\nWhich of the lines follows the most standard word order?", options: ["(a) Line 1", "(b) Line 2", "(c) Line 3", "(d) Line 4"], answer: 1 },
+      { id: "Q5", question: "Which of the following is a compound word?", options: ["(a) Hold", "(b) Scaffold", "(c) Unsolved", "(d) Threshold"], answer: 3 },
+      { id: "Q6", question: "Which of the following is the most appropriate synonym of the word underlined below?\nFerguson is convincing because of her extensive use of detail, the perspicacity of her observations, and the scholarly care that she takes in the construction of her argument.", options: ["(a) Clarity", "(b) Cleverness", "(c) Accuracy", "(d) Acuity"], answer: 3 },
+      { id: "Q7", question: "Fill in the blank with the appropriate adjective/adverb:\nMy mother worked _____ despite her fluctuating health condition.", options: ["(a) tiresome", "(b) tiring", "(c) tirelessly", "(d) tired"], answer: 2 },
+      { id: "Q8", question: "Which of the following gives the meaning of the underlined idiom?\nThe politician managed to complete the project in the teeth of cynicism from his constituency.", options: ["(a) stiff opposition", "(b) indifference", "(c) having humour", "(d) appreciation"], answer: 0 },
+      { id: "Q9", question: "Convert the following sentence into the tense given in brackets:\nPeople think that globalization is a recent phenomenon. (Past Perfect)", options: ["(a) People thought that globalization was a recent phenomenon.", "(b) People had thought that globalization has been a recent phenomenon.", "(c) People were thinking that globalization was a recent phenomenon.", "(d) People have been thinking that globalization will be a recent phenomenon."], answer: 1 },
+      { id: "Q10", question: "Change the voice of the following sentence:\nBy the time you reach auditorium, the pianist would have finished the rendition.", options: ["(a) By the time auditorium is reached by you, the pianist would have finished to rendition.", "(b) By the time you reach auditorium, the rendition would have finished the pianist.", "(c) By the time auditorium is reached by you, the pianist will have finished the rendition.", "(d) By the time you reach auditorium, the rendition would have been finished by the pianist."], answer: 3 },
+      { id: "Q11", question: "Fill in the blanks with the appropriate words:\nThe wound of the _____ takes much time to _____.", options: ["(a) heal, heel", "(b) heel, hail", "(c) heel, hall", "(d) heel, heal"], answer: 3 },
+      { id: "Q12", question: "Refer to the lines below:\nLine 1: May I come in, Sir?\nLine 2: Yes, please have a seat, Arun.\nLine 3: Sir, I could not finish this project in time.\nLine 4: But you ought to stick to deadlines, Arun.\nWhich of the lines uses a modal verb seeking approval?", options: ["(a) Line 1", "(b) Line 2", "(c) Line 3", "(d) Line 4"], answer: 0 },
+      { id: "Q13", question: "Fill in the correct preposition:\n_____, please find the cheque enclosed.", options: ["(a) On date", "(b) According", "(c) As per the rules", "(d) Accordance"], answer: 2 },
+      { id: "Q14", question: "Fill in the blank with the appropriate option:\nThere is nothing as refreshing as _____ sleep.", options: ["(a) long", "(b) lengthy", "(c) deep", "(d) short"], answer: 2 },
+      { id: "Q15", question: "Which of the following is the correct meaning of the proverb:\nA new broom sweeps clean.", options: ["(a) Old brooms are useless.", "(b) We should frequently buy new brooms.", "(c) Cleanliness is essential to our well being.", "(d) A newly appointed person takes actions that are noticeable."], answer: 3 }
     ],
     "QA": [
-      { id: "Q16", question: "In a political survey 78% of the politicians favour at least one proposal. 50% of them are in favour of proposal A, 30% are in favour of proposal B, and 20% are in favour of proposal C. 5% are in favour of all three proposals. What is % of people favouring more than 1 proposal?", options: ["(a) 17", "(b) 18", "(c) 16", "(d) None of these"] },
-      { id: "Q17", question: "Rohan sells two similar pens at Rs. 2580 and Rs. 1620. The % profit earned in first transaction is equal to percentage loss earned in 2nd transaction. At what price should these items be sold that final profit is 25%?", options: ["(a) 2100 each", "(b) None of these", "(c) 1800 each", "(d) 2625 each"] },
-      { id: "Q18", question: "A four digit number is formed using digit 1, 2, 3, 4, 5, 6, 7 in all possible ways without repeating a digit. How many are greater than 3400?", options: ["(a) 560", "(b) 580", "(c) 540", "(d) None of these"] },
-      { id: "Q19", question: "In an aeroplane the number of people aged 45 years and above is 20 and there are at most 26 people whose age is below 45 years. The average age of all the people in the aeroplane is 32 years. What is largest possible average age, in years, of the people whose ages are below 45 years?", options: ["(a) 22", "(b) 20", "(c) 21", "(d) None of these"] },
-      { id: "Q20", question: "A train after travelling 150 km meets with an accident and after that proceeds with 3/5th of its previous speed and arrives at the destination 8 hours late. Had the accident occurred 360 km farther it would have been 4 hours late. What is the total Distance Travelled?", options: ["(a) 780", "(b) 880", "(c) 720", "(d) None of these"] },
-      { id: "Q21", question: "If cos(θ) = 1/2, what will be 6*cot²(θ) - 1?", options: ["(a) 1", "(b) 2", "(c) 0.5", "(d) None of these"] },
-      { id: "Q22", question: "When a bus started from a bus stop the ratio of male and female passengers was 4:1. At the first stop 16 male and 8 female passengers got down and 12 female passengers boarded. The ratio of male and female passengers became 8:3. Find the number of passengers when the bus started.", options: ["(a) 100", "(b) 110", "(c) 90", "(d) None of these"] },
-      { id: "Q23", question: "Complete the series: 0.236, 0.449, 0.645, _____, 1, 1.165", options: ["(a) 0.684", "(b) 0.724", "(c) 0.987", "(d) 0.828"] },
-      { id: "Q24", question: "Sum of 37.5% of a and 41(2/3)% of b is 22. If 37.5% of a exceeds 41(2/3)% of b by 2. Find a & b.", options: ["(a) 32, 18", "(b) 36, 12", "(c) 32, 24", "(d) -34, 14"] },
-      { id: "Q25", question: "In a right triangle ACB, ∠ACB = 90°. CD is height of the triangle (CD ⊥ AB). AC = 15 cm, BC = 20 cm. If P and Q are the incenters of △ADC and △BDC respectively, find PQ.", options: ["(a) 7", "(b) 8", "(c) 5", "(d) 20"] },
-      { id: "Q26", question: "The price of 4 products A, B, C, D was increased in 2 years by:\nA: k% & (k+1)%\nB: (k+2)% & (k-1)%\nC: (k+3)% & (k-2)%\nD: (k+4)% & (k-3)%\nIf initially all prices were equal, the product with the lowest price after 2nd increase is:", options: ["(a) B", "(b) C", "(c) D", "(d) None of these"] },
-      { id: "Q27", question: "The average runs scored by Sumesh in 4 innings is 50. In the fifth inning, Sumesh scores some runs such that his average now becomes 62. In the 6th inning he scores 10 runs more than 5th inning and now the average of his last five innings becomes 80. How many runs did he score in his 1st inning?", options: ["(a) 28", "(b) 26", "(c) 30", "(d) None of these"] },
-      { id: "Q28", question: "In a tourist place there are 3 buses A, B and C working together to take people around for sightseeing. They together carry 60 people in each trip. Yesterday A started making trips early morning, almost carried 50 people in a few trips and then stopped service. B and C then started together and made a few trips. If A, B and C made 10 trips in total to carry 300 people then, how many trips A alone would have made to carry 150 people?", options: ["(a) 15", "(b) 10", "(c) 30", "(d) None of these"] },
-      { id: "Q29", question: "A boy is flying a kite from the ground at an elevation of 30° with a string of 100m. Another boy is flying from the roof of a 10m tall building with elevation 45°. Both boys are on opposite sides of their kites. Find the length of string the second boy must have so that both kites meet.", options: ["(a) 40√2", "(b) 4√10", "(c) 42√2", "(d) 50√2"] },
-      { id: "Q30", question: "In a box of 20 transistors, 4 were defective. If two transistors are chosen randomly, what is the probability that at least one is defective?", options: ["(a) 7/19", "(b) 12/19", "(c) 4/19", "(d) None of these"] },
-      { id: "Q31", question: "Find the largest 4-digit number which when divided by 3, 4, 5 leaves the remainders 2, 3, 4 respectively.", options: ["(a) 9999", "(b) 9959", "(c) 9989", "(d) None of these"] },
-      { id: "Q32", question: "In a huge rectangular water tank of dimension 150m x 100m base, water is filled using a pipe having cross-sectional dimensions of 2 dm × 1.5 dm. The water flows at a speed of 15 kmph from the pipe. How many hours will the water in the tank be 3 m filled if measured from the base?", options: ["(a) 10 hrs", "(b) 50 hrs", "(c) 100 hrs", "(d) None of the Above"] },
-      { id: "Q33", question: "6 different sweet varieties of count 28, 189, 119, 77, 161, 112 were ordered for a particular occasion. They needed to be packed in such a way that each box has the same variety of sweets and the number of sweets in each box is also the same. What is the minimum number of boxes required to pack?", options: ["(a) 97", "(b) 98", "(c) 99", "(d) None of the above"] },
-      { id: "Q34", question: "The difference between the white-coloured cars sold in the two metros (Metro M & Metro H) of which of the following models is the minimum?", options: ["(a) A", "(b) C", "(c) D", "(d) None of these"] },
-      { id: "Q35", question: "The total number of blue-coloured cars of Model E and D sold in Metro H is exactly equal to the number of white-coloured cars of which model in Metro M?", options: ["(a) B", "(b) F", "(c) C", "(d) A"] }
+      { id: "Q16", question: "In a political survey 78% of the politicians favour at least one proposal. 50% of them are in favour of proposal A, 30% are in favour of proposal B, and 20% are in favour of proposal C. 5% are in favour of all three proposals. What is % of people favouring more than 1 proposal?", options: ["(a) 17", "(b) 18", "(c) 16", "(d) None of these"], answer: 0 },
+      { id: "Q17", question: "Rohan sells two similar pens at Rs. 2580 and Rs. 1620. The % profit earned in first transaction is equal to percentage loss earned in 2nd transaction. At what price should these items be sold that final profit is 25%?", options: ["(a) 2100 each", "(b) None of these", "(c) 1800 each", "(d) 2625 each"], answer: 0 },
+      { id: "Q18", question: "A four digit number is formed using digit 1, 2, 3, 4, 5, 6, 7 in all possible ways without repeating a digit. How many are greater than 3400?", options: ["(a) 560", "(b) 580", "(c) 540", "(d) None of these"], answer: 1 },
+      { id: "Q19", question: "In an aeroplane the number of people aged 45 years and above is 20 and there are at most 26 people whose age is below 45 years. The average age of all the people in the aeroplane is 32 years. What is largest possible average age, in years, of the people whose ages are below 45 years?", options: ["(a) 22", "(b) 20", "(c) 21", "(d) None of these"], answer: 0 },
+      { id: "Q20", question: "A train after travelling 150 km meets with an accident and after that proceeds with 3/5th of its previous speed and arrives at the destination 8 hours late. Had the accident occurred 360 km farther it would have been 4 hours late. What is the total Distance Travelled?", options: ["(a) 780", "(b) 880", "(c) 720", "(d) None of these"], answer: 0 },
+      { id: "Q21", question: "If cos(θ) = 1/2, what will be 6*cot²(θ) - 1?", options: ["(a) 1", "(b) 2", "(c) 0.5", "(d) None of these"], answer: 0 },
+      { id: "Q22", question: "When a bus started from a bus stop the ratio of male and female passengers was 4:1. At the first stop 16 male and 8 female passengers got down and 12 female passengers boarded. The ratio of male and female passengers became 8:3. Find the number of passengers when the bus started.", options: ["(a) 100", "(b) 110", "(c) 90", "(d) None of these"], answer: 0 },
+      { id: "Q23", question: "Complete the series: 0.236, 0.449, 0.645, _____, 1, 1.165", options: ["(a) 0.684", "(b) 0.724", "(c) 0.987", "(d) 0.828"], answer: 3 },
+      { id: "Q24", question: "Sum of 37.5% of a and 41(2/3)% of b is 22. If 37.5% of a exceeds 41(2/3)% of b by 2. Find a & b.", options: ["(a) 32, 18", "(b) 36, 12", "(c) 32, 24", "(d) -34, 14"], answer: 2 },
+      { id: "Q25", question: "In a right triangle ACB, ∠ACB = 90°. CD is height of the triangle (CD ⊥ AB). AC = 15 cm, BC = 20 cm. If P and Q are the incenters of △ADC and △BDC respectively, find PQ.", options: ["(a) 7", "(b) 8", "(c) 5", "(d) 20"], answer: 2 },
+      { id: "Q26", question: "The price of 4 products A, B, C, D was increased in 2 years by:\nA: k% & (k+1)%\nB: (k+2)% & (k-1)%\nC: (k+3)% & (k-2)%\nD: (k+4)% & (k-3)%\nIf initially all prices were equal, the product with the lowest price after 2nd increase is:", options: ["(a) B", "(b) C", "(c) D", "(d) None of these"], answer: 3 },
+      { id: "Q27", question: "The average runs scored by Sumesh in 4 innings is 50. In the fifth inning, Sumesh scores some runs such that his average now becomes 62. In the 6th inning he scores 10 runs more than 5th inning and now the average of his last five innings becomes 80. How many runs did he score in his 1st inning?", options: ["(a) 28", "(b) 26", "(c) 30", "(d) None of these"], answer: 0 },
+      { id: "Q28", question: "In a tourist place there are 3 buses A, B and C working together to take people around for sightseeing. They together carry 60 people in each trip. Yesterday A started making trips early morning, almost carried 50 people in a few trips and then stopped service. B and C then started together and made a few trips. If A, B and C made 10 trips in total to carry 300 people then, how many trips A alone would have made to carry 150 people?", options: ["(a) 15", "(b) 10", "(c) 30", "(d) None of these"], answer: 0 },
+      { id: "Q29", question: "A boy is flying a kite from the ground at an elevation of 30° with a string of 100m. Another boy is flying from the roof of a 10m tall building with elevation 45°. Both boys are on opposite sides of their kites. Find the length of string the second boy must have so that both kites meet.", options: ["(a) 40√2", "(b) 4√10", "(c) 42√2", "(d) 50√2"], answer: 3 },
+      { id: "Q30", question: "In a box of 20 transistors, 4 were defective. If two transistors are chosen randomly, what is the probability that at least one is defective?", options: ["(a) 7/19", "(b) 12/19", "(c) 4/19", "(d) None of these"], answer: 0 },
+      { id: "Q31", question: "Find the largest 4-digit number which when divided by 3, 4, 5 leaves the remainders 2, 3, 4 respectively.", options: ["(a) 9999", "(b) 9959", "(c) 9989", "(d) None of these"], answer: 2 },
+      { id: "Q32", question: "In a huge rectangular water tank of dimension 150m x 100m base, water is filled using a pipe having cross-sectional dimensions of 2 dm × 1.5 dm. The water flows at a speed of 15 kmph from the pipe. How many hours will the water in the tank be 3 m filled if measured from the base?", options: ["(a) 10 hrs", "(b) 50 hrs", "(c) 100 hrs", "(d) None of the Above"], answer: 2 },
+      { id: "Q33", question: "6 different sweet varieties of count 28, 189, 119, 77, 161, 112 were ordered for a particular occasion. They needed to be packed in such a way that each box has the same variety of sweets and the number of sweets in each box is also the same. What is the minimum number of boxes required to pack?", options: ["(a) 97", "(b) 98", "(c) 99", "(d) None of the above"], answer: 1 },
+      { id: "Q34", question: "The difference between the white-coloured cars sold in the two metros (Metro M & Metro H) of which of the following models is the minimum?", options: ["(a) A", "(b) C", "(c) D", "(d) None of these"], answer: 0 },
+      { id: "Q35", question: "The total number of blue-coloured cars of Model E and D sold in Metro H is exactly equal to the number of white-coloured cars of which model in Metro M?", options: ["(a) B", "(b) F", "(c) C", "(d) A"], answer: 0 }
     ],
     "LR": [
-      { id: "Q36", question: "If first I at the extreme left end of the meaningless word is 1, then which pair indicates the correct sequence of letters to form the same meaningful word (PROCRASTINATION): ISNRNRTCTIPOAOA (Positions 1 to 15)", options: ["(a) 8, 15, 2, 7, 1, 14, 12, 9, 6, 4, 11, 3, 13, 5, 10", "(b) 11, 4, 14, 8, 6, 15, 2, 7, 1, 3, 13, 9, 10, 12, 5", "(c) 3, 13, 9, 10, 12, 5, 15, 11, 4, 1, 8, 6, 14, 2, 7", "(d) 5, 15, 9, 10, 12, 3, 13, 11, 4, 2, 8, 6, 14, 1, 7"] },
-      { id: "Q37", question: "Fourth Friday was on 30 December, 2005. What was the day of the week on 03-Jan-2010?", options: ["(a) Sunday", "(b) Thursday", "(c) Saturday", "(d) Friday"] },
-      { id: "Q38", question: "Apple (A) ^ Barberry (B) = A is mother of B; A - B = A is brother of B; A % B = A is father of B; A ≠ B = A is sister of B.\nThe name of maternal uncle of Jackfruit is Peach in which of the given expressions?", options: ["(a) Jackfruit (J) - Narangi (N) ^ Melon (M) Peach (P)", "(b) P ^ Santara (S) ≠ N - J", "(c) P - M ^ N ≠ J", "(d) J - S % P"] },
-      { id: "Q39", question: "Amar, Akbar, Anthony have habit of carrying a stylish item. Each carries a different item among goggles, hat, gloves, or among them is a truth-teller, liar, or alternator. You are interested about glove. Who carries gloves?\nAmar: I do not carry gloves. Anthony carries gloves.\nAkbar: I carry gloves. Amar carries goggles.\nAnthony: I carry hat. Akbar carries gloves.", options: ["(a) Amar", "(b) Anthony", "(c) Data insufficient", "(d) Akbar"] },
-      { id: "Q40", question: "A clock was set to start at 12:00:00 am. If the current time is 05:10:00 am, the hour hand has formed what degree angle?", options: ["(a) 150°", "(b) 155°", "(c) 157.5°", "(d) 152°"] },
-      { id: "Q41", question: "If ab = 3, de = 27 and 7 · dc = 3, then ab : dc :: de : ?", options: ["(a) 9168", "(b) 38691", "(c) 729", "(d) 19683"] },
-      { id: "Q42", question: "If BREAKTHROUGH is coded as EAOUHRBRGHKT, then CONTRIBUTION is coded as:", options: ["(a) None", "(b) NTTIBUONRICO", "(c) NTTIBUCORION", "(d) NTTIBUCOONRI"] },
-      { id: "Q43", question: "Atharva is son of Nannu who is sister of my mother-in-law's daughter. My only son's name is Nonu. I am the only son of my parents. Which of the following is incorrect?", options: ["(a) My wife is Nonu's mother.", "(b) Atharva and Nonu's mothers are not real sisters.", "(c) Nonu's mother's mother is mother of my father's only daughter-in-law.", "(d) My mother-in-law's only daughter is Nonu's mother."] },
-      { id: "Q44", question: "Complete the pattern: AC(CBABAB), ABC(CABAB), ABAC(CBAB), ABABC(CAB), ABABAC(CB), _____", options: ["(a) CAB, ABABAC(CB", "(b) ABABABC(C", "(c) BABAC(CBA", "(d) BAABC(CAB"] },
-      { id: "Q45", question: "Which figure replaces the question mark? (Based on sequence of arrows across 3 rows)", options: ["(a) Down-right arrow", "(b) Up arrow", "(c) Left arrow", "(d) Right arrow"] },
-      { id: "Q46", question: "Find the missing number: 27, 22, 18, _____, 8, 3", options: ["(a) 14", "(b) 11", "(c) 15", "(d) 13"] },
-      { id: "Q47", question: "Which dates in March 2008 fall on Sunday?", options: ["(a) 3, 10, 17, 24, 31", "(b) 1, 8, 15, 22, 29", "(c) 2, 9, 16, 23, 30", "(d) 7, 14, 21, 28"] },
-      { id: "Q48", question: "What is the direction of point R with respect to candidate E? (Based on 7 candidates linear seating arrangement)", options: ["(a) North-East", "(b) South-West", "(c) South-East", "(d) South"] },
-      { id: "Q49", question: "What is the position of F with respect to A? (Based on linear seating arrangement)", options: ["(a) Immediate Right", "(b) Immediate Left", "(c) Second to the Right", "(d) Second to the Left"] },
-      { id: "Q50", question: "A set of words are given in each option, arrange each alphabet alphabetically within the word, then using the 3rd letter from each word decide from which set a meaningful word is NOT formed by rearranging them.", options: ["(a) FTEID, MESAT, OCLKP, GSIUD", "(b) UGJYL, WTUZ, GERNC, PDOFV", "(c) USVH, NDPMH, ETCNB, ITSD", "(d) QHFWA, MBNRH, SEVJ, TKXGU"] },
-      { id: "Q51", question: "Given Input: 7925, 4758, 2538, 5628, 8561, 7426, 3625, 6245\nWhat will be the addition of the numbers which are second, fourth, sixth and eighth from the left end in step IV?", options: ["(a) 32", "(b) 23", "(c) 38", "(d) 40"] },
-      { id: "Q52", question: "TOMATO : MTOOTA :: 123412 : ?", options: ["(a) 312214", "(b) 123456", "(c) 321124", "(d) 213314"] },
-      { id: "Q53", question: "Find the missing number/alphabet in the pattern:\nP - G - 22\nF - N - 21\n27 - K - 15\nE - J - 2", options: ["(a) M", "(b) P", "(c) 32", "(d) None of these"] },
-      { id: "Q54", question: "Complete the figure (Select correct response to complete incomplete matrix pattern).", options: ["(a) Option A", "(b) Option B", "(c) Option C", "(d) Option D"] },
-      { id: "Q55", question: "Which one of the given responses would be a meaningful order of the following:\n1. Adult 2. Old age 3. Adolescent 4. Childhood 5. Infant", options: ["(a) 5, 4, 3, 1, 2", "(b) 1, 5, 4, 3, 2", "(c) 1, 2, 3, 4, 5", "(d) 3, 4, 5, 1, 2"] },
-      { id: "Q56", question: "Statement: 'Please prepare and send the following documents to the accountant's address,' said a proprietor to his assistant.\nAssumptions:\nI. The assistant would follow the proprietor's instruction.\nII. The assistant would personally go and hand over the documents to the accountant.", options: ["(a) Both I and II are implicit", "(b) Neither I nor II is implicit", "(c) Only II is implicit", "(d) Only I is implicit"] },
-      { id: "Q57", question: "Bihar Chief Minister Nitish Kumar launched a State-wide campaign to abolish dowry. Is this decision sufficient to get rid of this custom?", options: ["(a) Yes, as State govt. is launching state-wide campaign...", "(b) No, it will not impact too much until thinking of people changes...", "(c) Yes, as many NGOs run by women will also come...", "(d) No, it has been set in nerves of Bihar's society..."] },
-      { id: "Q58", question: "Cause: The Government has recently increased its taxes on petrol and diesel by about 10 percent.\nWhich of the following can be a possible effect?", options: ["(a) The petroleum companies will reduce the prices by 10%", "(b) The petroleum companies will increase the prices by 10%", "(c) The petroleum companies will increase the prices by 5%", "(d) The petrol pumps will stop selling petrol and diesel"] },
-      { id: "Q59", question: "Statement: Study of Politics should be made compulsory in school.\nArguments:\nI. Yes, an informed electorate is the key to strong democracy.\nII. No, politics and education should not be mixed as it will affect education.", options: ["(a) If only argument I is strong", "(b) If only argument II is strong", "(c) If either I or II is strong", "(d) If neither I nor II is strong"] },
-      { id: "Q60", question: "A family consists of eight members and three married couples. No single parent has a child. K is father of H. M is only son of N. K is brother-in-law of M. K has no siblings. M is uncle of P. Q is mother of M. N is maternal grandfather of C's son. G is sister-in-law of C and daughter-in-law of Q. P and G are of same gender. M's sister has only one son. Who among the following is the sister of H?", options: ["(a) K", "(b) M", "(c) G", "(d) P"] }
+      { id: "Q36", question: "If first I at the extreme left end of the meaningless word is 1, then which pair indicates the correct sequence of letters to form the same meaningful word (PROCRASTINATION): ISNRNRTCTIPOAOA (Positions 1 to 15)", options: ["(a) 8, 15, 2, 7, 1, 14, 12, 9, 6, 4, 11, 3, 13, 5, 10", "(b) 11, 4, 14, 8, 6, 15, 2, 7, 1, 3, 13, 9, 10, 12, 5", "(c) 3, 13, 9, 10, 12, 5, 15, 11, 4, 1, 8, 6, 14, 2, 7", "(d) 5, 15, 9, 10, 12, 3, 13, 11, 4, 2, 8, 6, 14, 1, 7"], answer: 0 },
+      { id: "Q37", question: "Fourth Friday was on 30 December, 2005. What was the day of the week on 03-Jan-2010?", options: ["(a) Sunday", "(b) Thursday", "(c) Saturday", "(d) Friday"], answer: 0 },
+      { id: "Q38", question: "Apple (A) ^ Barberry (B) = A is mother of B; A - B = A is brother of B; A % B = A is father of B; A ≠ B = A is sister of B.\nThe name of maternal uncle of Jackfruit is Peach in which of the given expressions?", options: ["(a) Jackfruit (J) - Narangi (N) ^ Melon (M) Peach (P)", "(b) P ^ Santara (S) ≠ N - J", "(c) P - M ^ N ≠ J", "(d) J - S % P"], answer: 2 },
+      { id: "Q39", question: "Amar, Akbar, Anthony have habit of carrying a stylish item. Each carries a different item among goggles, hat, gloves, or among them is a truth-teller, liar, or alternator. You are interested about glove. Who carries gloves?\nAmar: I do not carry gloves. Anthony carries gloves.\nAkbar: I carry gloves. Amar carries goggles.\nAnthony: I carry hat. Akbar carries gloves.", options: ["(a) Amar", "(b) Anthony", "(c) Data insufficient", "(d) Akbar"], answer: 3 },
+      { id: "Q40", question: "A clock was set to start at 12:00:00 am. If the current time is 05:10:00 am, the hour hand has formed what degree angle?", options: ["(a) 150°", "(b) 155°", "(c) 157.5°", "(d) 152°"], answer: 2 },
+      { id: "Q41", question: "If ab = 3, de = 27 and 7 · dc = 3, then ab : dc :: de : ?", options: ["(a) 9168", "(b) 38691", "(c) 729", "(d) 19683"], answer: 3 },
+      { id: "Q42", question: "If BREAKTHROUGH is coded as EAOUHRBRGHKT, then CONTRIBUTION is coded as:", options: ["(a) None", "(b) NTTIBUONRICO", "(c) NTTIBUCORION", "(d) NTTIBUCOONRI"], answer: 2 },
+      { id: "Q43", question: "Atharva is son of Nannu who is sister of my mother-in-law's daughter. My only son's name is Nonu. I am the only son of my parents. Which of the following is incorrect?", options: ["(a) My wife is Nonu's mother.", "(b) Atharva and Nonu's mothers are not real sisters.", "(c) Nonu's mother's mother is mother of my father's only daughter-in-law.", "(d) My mother-in-law's only daughter is Nonu's mother."], answer: 1 },
+      { id: "Q44", question: "Complete the pattern: AC(CBABAB), ABC(CABAB), ABAC(CBAB), ABABC(CAB), ABABAC(CB), _____", options: ["(a) CAB, ABABAC(CB", "(b) ABABABC(C", "(c) BABAC(CBA", "(d) BAABC(CAB"], answer: 1 },
+      { id: "Q45", question: "Which figure replaces the question mark? (Based on sequence of arrows across 3 rows)", options: ["(a) Down-right arrow", "(b) Up arrow", "(c) Left arrow", "(d) Right arrow"], answer: 1 },
+      { id: "Q46", question: "Find the missing number: 27, 22, 18, _____, 8, 3", options: ["(a) 14", "(b) 11", "(c) 15", "(d) 13"], answer: 0 },
+      { id: "Q47", question: "Which dates in March 2008 fall on Sunday?", options: ["(a) 3, 10, 17, 24, 31", "(b) 1, 8, 15, 22, 29", "(c) 2, 9, 16, 23, 30", "(d) 7, 14, 21, 28"], answer: 2 },
+      { id: "Q48", question: "What is the direction of point R with respect to candidate E? (Based on 7 candidates linear seating arrangement)", options: ["(a) North-East", "(b) South-West", "(c) South-East", "(d) South"], answer: 2 },
+      { id: "Q49", question: "What is the position of F with respect to A? (Based on linear seating arrangement)", options: ["(a) Immediate Right", "(b) Immediate Left", "(c) Second to the Right", "(d) Second to the Left"], answer: 2 },
+      { id: "Q50", question: "A set of words are given in each option, arrange each alphabet alphabetically within the word, then using the 3rd letter from each word decide from which set a meaningful word is NOT formed by rearranging them.", options: ["(a) FTEID, MESAT, OCLKP, GSIUD", "(b) UGJYL, WTUZ, GERNC, PDOFV", "(c) USVH, NDPMH, ETCNB, ITSD", "(d) QHFWA, MBNRH, SEVJ, TKXGU"], answer: 0 },
+      { id: "Q51", question: "Given Input: 7925, 4758, 2538, 5628, 8561, 7426, 3625, 6245\nWhat will be the addition of the numbers which are second, fourth, sixth and eighth from the left end in step IV?", options: ["(a) 32", "(b) 23", "(c) 38", "(d) 40"], answer: 0 },
+      { id: "Q52", question: "TOMATO : MTOOTA :: 123412 : ?", options: ["(a) 312214", "(b) 123456", "(c) 321124", "(d) 213314"], answer: 0 },
+      { id: "Q53", question: "Find the missing number/alphabet in the pattern:\nP - G - 22\nF - N - 21\n27 - K - 15\nE - J - 2", options: ["(a) M", "(b) P", "(c) 32", "(d) None of these"], answer: 2 },
+      { id: "Q54", question: "Complete the figure (Select correct response to complete incomplete matrix pattern).", options: ["(a) Option A", "(b) Option B", "(c) Option C", "(d) Option D"], answer: 0 },
+      { id: "Q55", question: "Which one of the given responses would be a meaningful order of the following:\n1. Adult 2. Old age 3. Adolescent 4. Childhood 5. Infant", options: ["(a) 5, 4, 3, 1, 2", "(b) 1, 5, 4, 3, 2", "(c) 1, 2, 3, 4, 5", "(d) 3, 4, 5, 1, 2"], answer: 0 },
+      { id: "Q56", question: "Statement: 'Please prepare and send the following documents to the accountant's address,' said a proprietor to his assistant.\nAssumptions:\nI. The assistant would follow the proprietor's instruction.\nII. The assistant would personally go and hand over the documents to the accountant.", options: ["(a) Both I and II are implicit", "(b) Neither I nor II is implicit", "(c) Only II is implicit", "(d) Only I is implicit"], answer: 3 },
+      { id: "Q57", question: "Bihar Chief Minister Nitish Kumar launched a State-wide campaign to abolish dowry. Is this decision sufficient to get rid of this custom?", options: ["(a) Yes, as State govt. is launching state-wide campaign...", "(b) No, it will not impact too much until thinking of people changes...", "(c) Yes, as many NGOs run by women will also come...", "(d) No, it has been set in nerves of Bihar's society..."], answer: 1 },
+      { id: "Q58", question: "Cause: The Government has recently increased its taxes on petrol and diesel by about 10 percent.\nWhich of the following can be a possible effect?", options: ["(a) The petroleum companies will reduce the prices by 10%", "(b) The petroleum companies will increase the prices by 10%", "(c) The petroleum companies will increase the prices by 5%", "(d) The petrol pumps will stop selling petrol and diesel"], answer: 1 },
+      { id: "Q59", question: "Statement: Study of Politics should be made compulsory in school.\nArguments:\nI. Yes, an informed electorate is the key to strong democracy.\nII. No, politics and education should not be mixed as it will affect education.", options: ["(a) If only argument I is strong", "(b) If only argument II is strong", "(c) If either I or II is strong", "(d) If neither I nor II is strong"], answer: 0 },
+      { id: "Q60", question: "A family consists of eight members and three married couples. No single parent has a child. K is father of H. M is only son of N. K is brother-in-law of M. K has no siblings. M is uncle of P. Q is mother of M. N is maternal grandfather of C's son. G is sister-in-law of C and daughter-in-law of Q. P and G are of same gender. M's sister has only one son. Who among the following is the sister of H?", options: ["(a) K", "(b) M", "(c) G", "(d) P"], answer: 2 }
     ]
   },
   "2023": {
     "VARC": [
-      { id: "Q1", question: "The proverb \"A rolling stone gathers no moss\" emphasizes that:", options: ["(a) One should be content with what they have and avoid change.", "(b) Patience and perseverance are key to achieving success.", "(c) Frequent movement leads to a lack of progress.", "(d) New experiences bring valuable knowledge and growth."] },
-      { id: "Q2", question: "In the following question, a sentence is given with a phrasal verb in bold. Choose the correct phrasal verb:\nShe narrowed the exam down in the first attempt.", options: ["(a) opted for", "(b) nailed down", "(c) passed out", "(d) No Error"] },
-      { id: "Q3", question: "Out of the four options given, select the most logical order of the sentences to form a coherent paragraph.\nP: When the game of life is finally over there is no second chance to correct our errors.\nQ: Time is the greater equalizer of all mankind.\nR: Time offers opportunity but demands a sense of regard.\nS: It has taken away the best and the worst of us without regard of either.", options: ["(a) QSRP", "(b) RSQP", "(c) QRSP", "(d) RSPQ"] },
-      { id: "Q4", question: "Convert into Active/Passive Voice:\nYou can play with these kittens quite safely.", options: ["(a) These kittens can played with quite safely.", "(b) These kittens can play with you quite safely.", "(c) These kittens can be played with you quite safely.", "(d) These kittens can be played with quite safely."] },
-      { id: "Q5", question: "The speaker describes their overwhelming workload as a _____ drowning them in tasks.", options: ["(a) Rushing river", "(b) Gentle breeze", "(c) Sparkling fountain", "(d) Heavy stone"] },
-      { id: "Q6", question: "Error spot:\nIf I was you, (a)/ I would not allow them (b)/ such leverage in the business.(c)/ No error(d)", options: ["(a) If I was you,", "(b) I would not allow them", "(c) such leverage in the business.", "(d) No error"] },
-      { id: "Q7", question: "Opposite meaning of treacherous:", options: ["(a) perilous", "(b) mutinous", "(c) seditious", "(d) secure"] },
-      { id: "Q8", question: "Meaning of exemplary:", options: ["(a) flawed", "(b) faulty", "(c) ideal", "(d) boisterous"] },
-      { id: "Q9", question: "Fill in the preposition:\nWe must mail the letter _____ Friday.", options: ["(a) by", "(b) since", "(c) until", "(d) for"] },
-      { id: "Q10", question: "Question tag:\nI guess he is in a hurry, _____?", options: ["(a) doesn't he", "(b) is he", "(c) isn't he", "(d) does he"] },
-      { id: "Q11", question: "The librarian asked everyone to be more _____ as she needed silence to concentrate on filing the new books.", options: ["(a) respectful", "(b) enthusiastic", "(c) confused", "(d) talkative"] },
-      { id: "Q12", question: "Having _____ the report all night, Sarah was exhausted but satisfied with the final product.", options: ["(a) written", "(b) write", "(c) to write", "(d) writes"] },
-      { id: "Q13", question: "Correct spelling of penacea:", options: ["(a) panacea", "(b) penecea", "(c) panacia", "(d) panacya"] },
-      { id: "Q14", question: "_____ my best friend Hasan is five years older than me, he looks very young.", options: ["(a) Until", "(b) When", "(c) Although", "(d) Because"] },
-      { id: "Q15", question: "After a _____ three months of stock market activity, the price of bonds _____ last week.", options: ["(a) tumultuous, stabilised", "(b) hectic, fell", "(c) variety, surged", "(d) continuous, soared"] }
+      { id: "Q1", question: "The proverb \"A rolling stone gathers no moss\" emphasizes that:", options: ["(a) One should be content with what they have and avoid change.", "(b) Patience and perseverance are key to achieving success.", "(c) Frequent movement leads to a lack of progress.", "(d) New experiences bring valuable knowledge and growth."], answer: 2 },
+      { id: "Q2", question: "In the following question, a sentence is given with a phrasal verb in bold. Choose the correct phrasal verb:\nShe narrowed the exam down in the first attempt.", options: ["(a) opted for", "(b) nailed down", "(c) passed out", "(d) No Error"], answer: 1 },
+      { id: "Q3", question: "Out of the four options given, select the most logical order of the sentences to form a coherent paragraph.\nP: When the game of life is finally over there is no second chance to correct our errors.\nQ: Time is the greater equalizer of all mankind.\nR: Time offers opportunity but demands a sense of regard.\nS: It has taken away the best and the worst of us without regard of either.", options: ["(a) QSRP", "(b) RSQP", "(c) QRSP", "(d) RSPQ"], answer: 0 },
+      { id: "Q4", question: "Convert into Active/Passive Voice:\nYou can play with these kittens quite safely.", options: ["(a) These kittens can played with quite safely.", "(b) These kittens can play with you quite safely.", "(c) These kittens can be played with you quite safely.", "(d) These kittens can be played with quite safely."], answer: 3 },
+      { id: "Q5", question: "The speaker describes their overwhelming workload as a _____ drowning them in tasks.", options: ["(a) Rushing river", "(b) Gentle breeze", "(c) Sparkling fountain", "(d) Heavy stone"], answer: 0 },
+      { id: "Q6", question: "Error spot:\nIf I was you, (a)/ I would not allow them (b)/ such leverage in the business.(c)/ No error(d)", options: ["(a) If I was you,", "(b) I would not allow them", "(c) such leverage in the business.", "(d) No error"], answer: 0 },
+      { id: "Q7", question: "Opposite meaning of treacherous:", options: ["(a) perilous", "(b) mutinous", "(c) seditious", "(d) secure"], answer: 3 },
+      { id: "Q8", question: "Meaning of exemplary:", options: ["(a) flawed", "(b) faulty", "(c) ideal", "(d) boisterous"], answer: 2 },
+      { id: "Q9", question: "Fill in the preposition:\nWe must mail the letter _____ Friday.", options: ["(a) by", "(b) since", "(c) until", "(d) for"], answer: 0 },
+      { id: "Q10", question: "Question tag:\nI guess he is in a hurry, _____?", options: ["(a) doesn't he", "(b) is he", "(c) isn't he", "(d) does he"], answer: 2 },
+      { id: "Q11", question: "The librarian asked everyone to be more _____ as she needed silence to concentrate on filing the new books.", options: ["(a) respectful", "(b) enthusiastic", "(c) confused", "(d) talkative"], answer: 0 },
+      { id: "Q12", question: "Having _____ the report all night, Sarah was exhausted but satisfied with the final product.", options: ["(a) written", "(b) write", "(c) to write", "(d) writes"], answer: 0 },
+      { id: "Q13", question: "Correct spelling of penacea:", options: ["(a) panacea", "(b) penecea", "(c) panacia", "(d) panacya"], answer: 0 },
+      { id: "Q14", question: "_____ my best friend Hasan is five years older than me, he looks very young.", options: ["(a) Until", "(b) When", "(c) Although", "(d) Because"], answer: 2 },
+      { id: "Q15", question: "After a _____ three months of stock market activity, the price of bonds _____ last week.", options: ["(a) tumultuous, stabilised", "(b) hectic, fell", "(c) variety, surged", "(d) continuous, soared"], answer: 0 }
     ],
     "QA": [
-      { id: "Q16", question: "Roy bought articles at Rs 20 per item. He sells them for Rs 2, Rs 4 and Rs 6 and so on. He intends to make at least a profit of 40%. What will be the minimum number of articles he should sell?", options: ["(a) 25", "(b) 27", "(c) 28", "(d) None of these"] },
-      { id: "Q17", question: "A and B have bags full of one rupee coins. Total value is Rs 45. 5 coins dropped from each bag due to holes. Product of remaining coins is 124. Find the product of initial coins.", options: ["(a) 350", "(b) 324", "(c) 200", "(d) None of these"] },
-      { id: "Q18", question: "Imran sold a mobile phone for Rs. 17600 after 12% discount on marked price, earning 10% profit. Find profit % if no discount is given?", options: ["(a) 12%", "(b) 22%", "(c) 25%", "(d) None of these"] },
-      { id: "Q19", question: "160 persons (male/female) participated in an event. 1240 apples distributed. Each male gets 7 apples and each female gets 12 apples. Find number of females.", options: ["(a) 24", "(b) 26", "(c) 28", "(d) 30"] },
-      { id: "Q20", question: "Mixture contains 3/4 milk and 1/4 water. Diluted with water to contain 1/2 milk and 1/2 water. How much liquid is extracted and replaced with water?", options: ["(a) 1/2", "(b) 1/4", "(c) 1/3", "(d) None of these"] },
-      { id: "Q21", question: "Shopkeeper mixes two types of sugar. Mixed in 3:2, profit is 10%. Mixed in 2:3, profit is 5%. Selling price is Rs 40. Find ratio of cost prices.", options: ["(a) 2:3", "(b) 19:24", "(c) 17:20", "(d) None of these"] },
-      { id: "Q22", question: "4 different positive numbers in ascending order. 1/4th of average of all 4 is 24 less than the greatest. If average of first 3 is 32, greatest number is:", options: ["(a) 32", "(b) 34", "(c) 36", "(d) None of these"] },
-      { id: "Q23", question: "A and B complete work in 2 days (5 hrs/day). B and C in 4 days (6 hrs/day). C and A in 2 days (6 hrs/day). How many days for A alone at 5 hrs/day?", options: ["(a) 3", "(b) 5", "(c) 12", "(d) 15"] },
-      { id: "Q24", question: "Sonu, Monu and Romu scored 342 runs in total. Sonu:Monu = 3:2, Monu:Romu = 3:2. Find runs scored by Romu.", options: ["(a) 96", "(b) 64", "(c) 72", "(d) None of these"] },
-      { id: "Q25", question: "Letters of MINUTE arranged such that vowels occupy only odd positions.", options: ["(a) 32", "(b) 36", "(c) 48", "(d) None of these"] },
-      { id: "Q26", question: "Ways to distribute 7 different chocolates to A, B, C such that at least one gets exactly one chocolate?", options: ["(a) 1050", "(b) 1176", "(c) 1218", "(d) None of these"] },
-      { id: "Q27", question: "Group X (3G, 2B) chosen if die shows 1. Group Y (3G, 4B) chosen if 2 or 3. Group Z (4G, 5B) chosen if 4, 5, 6. If a girl is chosen, probability she is from group Y?", options: ["(a) 7/90", "(b) 63/293", "(c) 90/293", "(d) None of these"] },
-      { id: "Q28", question: "Mohini speaks truth 6/9 times, Rohini 3/6 times. Probability they contradict each other?", options: ["(a) 1/2", "(b) 2/3", "(c) 4/5", "(d) None of these"] },
-      { id: "Q29", question: "x, y, z are consecutive numbers and log(1+xz) = 2A, find A.", options: ["(a) log x", "(b) log y", "(c) log z", "(d) None of these"] },
-      { id: "Q30", question: "Decreasing AP, sum except 1st term is -75, sum of all terms is 0. Difference between 9th and 13th term is 20. Find 1st term.", options: ["(a) 25", "(b) 30", "(c) 35", "(d) None of these"] },
-      { id: "Q31", question: "Equilateral triangle area 240 sq units. Corners cut to form regular hexagon. Area of hexagon:", options: ["(a) 120", "(b) 160", "(c) 180", "(d) None of these"] },
-      { id: "Q32", question: "Flower bed areas: 125, 375, 250 sq m. Maximum rows of flowers if row width is 3 sq m?", options: ["(a) 249", "(b) 246", "(c) 250", "(d) None of these"] },
-      { id: "Q33", question: "Point observes top of building at 30°. Moves 500m towards building, angle becomes 75°. Height of building?", options: ["(a) 125(√3+1)", "(b) 250(√3+1)", "(c) 500(√3+1)", "(d) None of these"] },
-      { id: "Q34", question: "Male population above Edu Index for UP is 1.6 lakhs. Total UP population in lakhs (approx)?", options: ["(a) 2.28", "(b) 2.96", "(c) 3.67", "(d) 3.69"] },
-      { id: "Q35", question: "3+2=7, 51+7=76, 32-8=-32, 12+3=21. Value of '?' in 51+(?)=76:", options: ["(a) 7", "(b) 25", "(c) 5", "(d) None of these"] }
+      { id: "Q16", question: "Roy bought articles at Rs 20 per item. He sells them for Rs 2, Rs 4 and Rs 6 and so on. He intends to make at least a profit of 40%. What will be the minimum number of articles he should sell?", options: ["(a) 25", "(b) 27", "(c) 28", "(d) None of these"], answer: 2 },
+      { id: "Q17", question: "A and B have bags full of one rupee coins. Total value is Rs 45. 5 coins dropped from each bag due to holes. Product of remaining coins is 124. Find the product of initial coins.", options: ["(a) 350", "(b) 324", "(c) 200", "(d) None of these"], answer: 1 },
+      { id: "Q18", question: "Imran sold a mobile phone for Rs. 17600 after 12% discount on marked price, earning 10% profit. Find profit % if no discount is given?", options: ["(a) 12%", "(b) 22%", "(c) 25%", "(d) None of these"], answer: 2 },
+      { id: "Q19", question: "160 persons (male/female) participated in an event. 1240 apples distributed. Each male gets 7 apples and each female gets 12 apples. Find number of females.", options: ["(a) 24", "(b) 26", "(c) 28", "(d) 30"], answer: 2 },
+      { id: "Q20", question: "Mixture contains 3/4 milk and 1/4 water. Diluted with water to contain 1/2 milk and 1/2 water. How much liquid is extracted and replaced with water?", options: ["(a) 1/2", "(b) 1/4", "(c) 1/3", "(d) None of these"], answer: 0 },
+      { id: "Q21", question: "Shopkeeper mixes two types of sugar. Mixed in 3:2, profit is 10%. Mixed in 2:3, profit is 5%. Selling price is Rs 40. Find ratio of cost prices.", options: ["(a) 2:3", "(b) 19:24", "(c) 17:20", "(d) None of these"], answer: 1 },
+      { id: "Q22", question: "4 different positive numbers in ascending order. 1/4th of average of all 4 is 24 less than the greatest. If average of first 3 is 32, greatest number is:", options: ["(a) 32", "(b) 34", "(c) 36", "(d) None of these"], answer: 2 },
+      { id: "Q23", question: "A and B complete work in 2 days (5 hrs/day). B and C in 4 days (6 hrs/day). C and A in 2 days (6 hrs/day). How many days for A alone at 5 hrs/day?", options: ["(a) 3", "(b) 5", "(c) 12", "(d) 15"], answer: 0 },
+      { id: "Q24", question: "Sonu, Monu and Romu scored 342 runs in total. Sonu:Monu = 3:2, Monu:Romu = 3:2. Find runs scored by Romu.", options: ["(a) 96", "(b) 64", "(c) 72", "(d) None of these"], answer: 0 },
+      { id: "Q25", question: "Letters of MINUTE arranged such that vowels occupy only odd positions.", options: ["(a) 32", "(b) 36", "(c) 48", "(d) None of these"], answer: 1 },
+      { id: "Q26", question: "Ways to distribute 7 different chocolates to A, B, C such that at least one gets exactly one chocolate?", options: ["(a) 1050", "(b) 1176", "(c) 1218", "(d) None of these"], answer: 1 },
+      { id: "Q27", question: "Group X (3G, 2B) chosen if die shows 1. Group Y (3G, 4B) chosen if 2 or 3. Group Z (4G, 5B) chosen if 4, 5, 6. If a girl is chosen, probability she is from group Y?", options: ["(a) 7/90", "(b) 63/293", "(c) 90/293", "(d) None of these"], answer: 1 },
+      { id: "Q28", question: "Mohini speaks truth 6/9 times, Rohini 3/6 times. Probability they contradict each other?", options: ["(a) 1/2", "(b) 2/3", "(c) 4/5", "(d) None of these"], answer: 0 },
+      { id: "Q29", question: "x, y, z are consecutive numbers and log(1+xz) = 2A, find A.", options: ["(a) log x", "(b) log y", "(c) log z", "(d) None of these"], answer: 1 },
+      { id: "Q30", question: "Decreasing AP, sum except 1st term is -75, sum of all terms is 0. Difference between 9th and 13th term is 20. Find 1st term.", options: ["(a) 25", "(b) 30", "(c) 35", "(d) None of these"], answer: 2 },
+      { id: "Q31", question: "Equilateral triangle area 240 sq units. Corners cut to form regular hexagon. Area of hexagon:", options: ["(a) 120", "(b) 160", "(c) 180", "(d) None of these"], answer: 2 },
+      { id: "Q32", question: "Flower bed areas: 125, 375, 250 sq m. Maximum rows of flowers if row width is 3 sq m?", options: ["(a) 249", "(b) 246", "(c) 250", "(d) None of these"], answer: 1 },
+      { id: "Q33", question: "Point observes top of building at 30°. Moves 500m towards building, angle becomes 75°. Height of building?", options: ["(a) 125(√3+1)", "(b) 250(√3+1)", "(c) 500(√3+1)", "(d) None of these"], answer: 1 },
+      { id: "Q34", question: "Male population above Edu Index for UP is 1.6 lakhs. Total UP population in lakhs (approx)?", options: ["(a) 2.28", "(b) 2.96", "(c) 3.67", "(d) 3.69"], answer: 3 },
+      { id: "Q35", question: "3+2=7, 51+7=76, 32-8=-32, 12+3=21. Value of '?' in 51+(?)=76:", options: ["(a) 7", "(b) 25", "(c) 5", "(d) None of these"], answer: 1 }
     ],
     "LR": [
-      { id: "Q36", question: "Next term: 1, 3, 7, 13, 21, 31, _____", options: ["(a) 67", "(b) 43", "(c) 31", "(d) 52"] },
-      { id: "Q37", question: "Next term: Tue, Wed, Fri, Mon, ?, Wed", options: ["(a) Wed", "(b) Fri", "(c) Thu", "(d) Sat"] },
-      { id: "Q38", question: "If 8055 & 238945 = BOSS and ZEBRAS, then LEETS = ?", options: ["(a) 23375", "(b) 13357", "(c) 13572", "(d) 13375"] },
-      { id: "Q39", question: "Suresh bhai (father-in-law of Mahesh's wife) has 1 son. Brother-in-law of Mahesh is Paresh & Suresh is Ramesh's Grandfather. Mahesh has no Sister-in-law. Paresh to Ramesh?", options: ["(a) 21534", "(b) 21354", "(c) 21543", "(d) Maternal Uncle"] },
-      { id: "Q40", question: "Logical sequence: 1. Pune 2. Aga Khan Palace 3. World 4. India 5. Maharashtra", options: ["(a) 21534", "(b) 21354", "(c) 21543", "(d) 15425"] },
-      { id: "Q41", question: "In 24h clock, [(angle P at 6:00) + (angle P at 18:00)] / (angle P at 12:00) = ?", options: ["(a) 3", "(b) 2", "(c) 4", "(d) None of these"] },
-      { id: "Q42", question: "Mohini speaks truth 6/9, Rohini 3/6. Probability of contradiction?", options: ["(a) 1/2", "(b) 4/5", "(c) 2/3", "(d) None"] },
-      { id: "Q43", question: "Complete series: 15, 21, 27, 33, 35, 39, _____, 51, 55", options: ["(a) 47", "(b) 49", "(c) 45", "(d) 50"] },
-      { id: "Q44", question: "Arrange bottom to top: 1. Knees 2. Elbow 3. Head 4. Tongue 5. Neck 6. Foot", options: ["(a) 345216", "(b) 345261", "(c) 345621", "(d) None of these (Correct: 6, 1, 2, 5, 4, 3)"] },
-      { id: "Q45", question: "Calendar repetition of 2003:", options: ["(a) 2032", "(b) 2034", "(c) 2025", "(d) 2028"] },
-      { id: "Q46", question: "Statements: Only a few Chocolate are Table. Only a few Tables are Plants. Only a few Plants are Fan.\nConclusions: I. Some fan is Chocolate is a possibility. II. All fan are Tables.", options: ["(a) Only I", "(b) Only II", "(c) Either", "(d) Neither"] },
-      { id: "Q47", question: "Statements: Only a few Ant are Cow. No cow is Joker. Only a few Joker are Deer.\nConclusions: I. Some Ant are Joker. II. Some Deer are Ant.", options: ["(a) Only I", "(b) Only II", "(c) Either", "(d) Neither"] },
-      { id: "Q48", question: "Statement: All species of plants and animals are part of biodiversity and ecosystems.\nAssumptions:\nI. Preserve or create a backyard habitat.\nII. One of the major goals of sustainability is to preserve biodiversity.", options: ["(a) Neither", "(b) Both", "(c) Only I", "(d) Only II"] },
-      { id: "Q49", question: "Statement: ICMR warning on antibiotic resistance in 50% of hospital patients.\nCourses of Action:\nI. WHO revision of antibiotic classes is welcome.\nII. Close scrutiny by national stewardship programmes needed.", options: ["(a) Only I", "(b) Both I and II", "(c) Either I or II", "(d) Only II"] },
-      { id: "Q50", question: "Which professors get South facing flats? (Based on Sampada Apartment seating arrangement)", options: ["(a) Qureshi, Tripathy, Sawant", "(b) Usman, Tripathy, Purohit", "(c) Usman, Rathor, Purohit", "(d) None of the above"] },
-      { id: "Q51", question: "If flats of Tripathy and Purohit are interchanged, whose flat will be next to Usman?", options: ["(a) Prof. Rathor", "(b) Prof. Tripathy", "(c) Prof. Usman", "(d) None of the above"] },
-      { id: "Q52", question: "Probable cause for drop in four-wheeler sales over 6 months:\n(A) Higher excise duty imposed early this year.\n(B) Petrol prices rose over past 8 months.\n(C) Interest rate on loans rising past 7 months.", options: ["(a) All (A), (B) and (C)", "(b) (A) and (C) Only", "(c) (B) and (C) Only", "(d) (B) Only"] },
-      { id: "Q53", question: "Water image of given figure:", options: ["(a) D", "(b) C", "(c) A", "(d) B"] },
-      { id: "Q54", question: "Statement: Government decided to construct 8-lane super highway across state.\nImplicit Assumption:", options: ["(a) Govt has adequate resources for construction.", "(b) People may protest against farmland acquisition.", "(c) Govt may find it difficult to enroll suitable contractor.", "(d) No other highway exists."] },
-      { id: "Q55", question: "Farmers protesting demanding higher MSP and loan waivers.\nCourses of action:\n(i) Punish protesters.\n(ii) Use cloud seeding.\n(iii) Constitute team to assess drought severity and pay compensation.", options: ["(a) Only (i)", "(b) Both (i) and (ii)", "(c) Only (iii)", "(d) Both (ii) and (iii)"] },
-      { id: "Q56", question: "Gaurav was on duty 10th July 2020, who is on duty 26th September 2020? (24h rotations with 3 days off)", options: ["(a) Amir", "(b) Sahil", "(c) Vaibhav", "(d) Gaurav"] },
-      { id: "Q57", question: "Sahil was on duty 14th Feb 2020, who did maximum duties in that month?", options: ["(a) Amir", "(b) Sahil", "(c) Vaibhav", "(d) Gaurav"] },
-      { id: "Q58", question: "Effect: Temple wears deserted look with decreasing devotees. Possible cause:", options: ["(a) Engineer declared structure unsafe a month back.", "(b) Temple faces depletion of funds.", "(c) Local corp donated huge money for renovation.", "(d) Village has qualified priests."] },
-      { id: "Q59", question: "5th, 24th, 16th alphabets + AND = EXPAND. Suffix of 19th, 8th, 18th (SHR) having opposite meaning:", options: ["(a) ACT", "(b) AND", "(c) INK", "(d) NAL"] },
-      { id: "Q60", question: "Suffix for 3rd, 15th, 14th, 20th, 18th (CONTR) having same meaning as above:", options: ["(a) ACT", "(b) AND", "(c) INK", "(d) NAL"] }
+      { id: "Q36", question: "Next term: 1, 3, 7, 13, 21, 31, _____", options: ["(a) 67", "(b) 43", "(c) 31", "(d) 52"], answer: 1 },
+      { id: "Q37", question: "Next term: Tue, Wed, Fri, Mon, ?, Wed", options: ["(a) Wed", "(b) Fri", "(c) Thu", "(d) Sat"], answer: 3 },
+      { id: "Q38", question: "If 8055 & 238945 = BOSS and ZEBRAS, then LEETS = ?", options: ["(a) 23375", "(b) 13357", "(c) 13572", "(d) 13375"], answer: 3 },
+      { id: "Q39", question: "Suresh bhai (father-in-law of Mahesh's wife) has 1 son. Brother-in-law of Mahesh is Paresh & Suresh is Ramesh's Grandfather. Mahesh has no Sister-in-law. Paresh to Ramesh?", options: ["(a) 21534", "(b) 21354", "(c) 21543", "(d) Maternal Uncle"], answer: 3 },
+      { id: "Q40", question: "Logical sequence: 1. Pune 2. Aga Khan Palace 3. World 4. India 5. Maharashtra", options: ["(a) 21534", "(b) 21354", "(c) 21543", "(d) 15425"], answer: 0 },
+      { id: "Q41", question: "In 24h clock, [(angle P at 6:00) + (angle P at 18:00)] / (angle P at 12:00) = ?", options: ["(a) 3", "(b) 2", "(c) 4", "(d) None of these"], answer: 0 },
+      { id: "Q42", question: "Mohini speaks truth 6/9, Rohini 3/6. Probability of contradiction?", options: ["(a) 1/2", "(b) 4/5", "(c) 2/3", "(d) None"], answer: 0 },
+      { id: "Q43", question: "Complete series: 15, 21, 27, 33, 35, 39, _____, 51, 55", options: ["(a) 47", "(b) 49", "(c) 45", "(d) 50"], answer: 0 },
+      { id: "Q44", question: "Arrange bottom to top: 1. Knees 2. Elbow 3. Head 4. Tongue 5. Neck 6. Foot", options: ["(a) 345216", "(b) 345261", "(c) 345621", "(d) None of these (Correct: 6, 1, 2, 5, 4, 3)"], answer: 3 },
+      { id: "Q45", question: "Calendar repetition of 2003:", options: ["(a) 2032", "(b) 2034", "(c) 2025", "(d) 2028"], answer: 1 },
+      { id: "Q46", question: "Statements: Only a few Chocolate are Table. Only a few Tables are Plants. Only a few Plants are Fan.\nConclusions: I. Some fan is Chocolate is a possibility. II. All fan are Tables.", options: ["(a) Only I", "(b) Only II", "(c) Either", "(d) Neither"], answer: 0 },
+      { id: "Q47", question: "Statements: Only a few Ant are Cow. No cow is Joker. Only a few Joker are Deer.\nConclusions: I. Some Ant are Joker. II. Some Deer are Ant.", options: ["(a) Only I", "(b) Only II", "(c) Either", "(d) Neither"], answer: 3 },
+      { id: "Q48", question: "Statement: All species of plants and animals are part of biodiversity and ecosystems.\nAssumptions:\nI. Preserve or create a backyard habitat.\nII. One of the major goals of sustainability is to preserve biodiversity.", options: ["(a) Neither", "(b) Both", "(c) Only I", "(d) Only II"], answer: 1 },
+      { id: "Q49", question: "Statement: ICMR warning on antibiotic resistance in 50% of hospital patients.\nCourses of Action:\nI. WHO revision of antibiotic classes is welcome.\nII. Close scrutiny by national stewardship programmes needed.", options: ["(a) Only I", "(b) Both I and II", "(c) Either I or II", "(d) Only II"], answer: 3 },
+      { id: "Q50", question: "Which professors get South facing flats? (Based on Sampada Apartment seating arrangement)", options: ["(a) Qureshi, Tripathy, Sawant", "(b) Usman, Tripathy, Purohit", "(c) Usman, Rathor, Purohit", "(d) None of the above"], answer: 0 },
+      { id: "Q51", question: "If flats of Tripathy and Purohit are interchanged, whose flat will be next to Usman?", options: ["(a) Prof. Rathor", "(b) Prof. Tripathy", "(c) Prof. Usman", "(d) None of the above"], answer: 0 },
+      { id: "Q52", question: "Probable cause for drop in four-wheeler sales over 6 months:\n(A) Higher excise duty imposed early this year.\n(B) Petrol prices rose over past 8 months.\n(C) Interest rate on loans rising past 7 months.", options: ["(a) All (A), (B) and (C)", "(b) (A) and (C) Only", "(c) (B) and (C) Only", "(d) (B) Only"], answer: 0 },
+      { id: "Q53", question: "Water image of given figure:", options: ["(a) D", "(b) C", "(c) A", "(d) B"], answer: 0 },
+      { id: "Q54", question: "Statement: Government decided to construct 8-lane super highway across state.\nImplicit Assumption:", options: ["(a) Govt has adequate resources for construction.", "(b) People may protest against farmland acquisition.", "(c) Govt may find it difficult to enroll suitable contractor.", "(d) No other highway exists."], answer: 0 },
+      { id: "Q55", question: "Farmers protesting demanding higher MSP and loan waivers.\nCourses of action:\n(i) Punish protesters.\n(ii) Use cloud seeding.\n(iii) Constitute team to assess drought severity and pay compensation.", options: ["(a) Only (i)", "(b) Both (i) and (ii)", "(c) Only (iii)", "(d) Both (ii) and (iii)"], answer: 2 },
+      { id: "Q56", question: "Gaurav was on duty 10th July 2020, who is on duty 26th September 2020? (24h rotations with 3 days off)", options: ["(a) Amir", "(b) Sahil", "(c) Vaibhav", "(d) Gaurav"], answer: 1 },
+      { id: "Q57", question: "Sahil was on duty 14th Feb 2020, who did maximum duties in that month?", options: ["(a) Amir", "(b) Sahil", "(c) Vaibhav", "(d) Gaurav"], answer: 1 },
+      { id: "Q58", question: "Effect: Temple wears deserted look with decreasing devotees. Possible cause:", options: ["(a) Engineer declared structure unsafe a month back.", "(b) Temple faces depletion of funds.", "(c) Local corp donated huge money for renovation.", "(d) Village has qualified priests."], answer: 0 },
+      { id: "Q59", question: "5th, 24th, 16th alphabets + AND = EXPAND. Suffix of 19th, 8th, 18th (SHR) having opposite meaning:", options: ["(a) ACT", "(b) AND", "(c) INK", "(d) NAL"], answer: 0 },
+      { id: "Q60", question: "Suffix for 3rd, 15th, 14th, 20th, 18th (CONTR) having same meaning as above:", options: ["(a) ACT", "(b) AND", "(c) INK", "(d) NAL"], answer: 0 }
     ]
   },
   "2024": {
     "VARC": [
-      { id: "Q1", question: "Sentence Rearrangement:\nS1: The library is a place where knowledge is preserved and shared with all.\nP: Students and researchers often visit to find useful information for their studies.\nQ: It houses thousands of books, journals, and digital resources on various subjects.\nR: The peaceful environment helps visitors focus and absorb knowledge effectively.\nS: Librarians play a crucial role in organizing and maintaining these resources.\nS6: Thus, the library serves as a treasure trove of wisdom for generations.\nProper sequence:", options: ["(a) RSQP", "(b) PQRS", "(c) SQPR", "(d) QSPR"] },
-      { id: "Q2", question: "Idiom Meaning: \"To burn the midnight oil\"", options: ["(a) To waste time", "(b) To work late into the night", "(c) To celebrate all night", "(d) To sleep early"] },
-      { id: "Q3", question: "Idiom Meaning: \"Hit the nail on the head\"", options: ["(a) To make a mistake", "(b) To be very precise or accurate", "(c) To get hurt while working", "(d) To start an argument"] },
-      { id: "Q4", question: "Opposite word of ARDENT:", options: ["(a) Indifferent", "(b) Zealous", "(c) Fervent", "(d) Enthusiastic"] },
-      { id: "Q5", question: "Indirect Speech: She said, \"I have completed my assignment on time.\"", options: ["(a) She said that she had completed her assignment on time.", "(b) She said that I have completed my assignment on time.", "(c) She said that she completed her assignment on time.", "(d) None of these"] },
-      { id: "Q6", question: "Direct Speech: The teacher told the students that the Earth revolves around the Sun.", options: ["(a) The teacher said, \"The Earth revolved around the Sun.\"", "(b) The teacher said, \"The Earth revolves around the Sun.\"", "(c) The teacher said, \"The Earth is revolving around the Sun.\"", "(d) The teacher said, \"The Earth had revolved around the Sun.\""] },
-      { id: "Q7", question: "Sentence completion: Even though she was unwell, .......", options: ["(a) she continued working with determination.", "(b) she decided to go on a long vacation.", "(c) she avoided taking any rest at all.", "(d) she stopped working immediately."] },
-      { id: "Q8", question: "Sentence completion: The moment the fire alarm rang, .......", options: ["(a) everyone ignored it and continued their work.", "(b) people evacuated the building immediately.", "(c) the fire brigade arrived instantly.", "(d) the fire alarm stopped ringing."] },
-      { id: "Q9", question: "Sentence completion: If we don't leave now, ......", options: ["(a) we will reach the destination early.", "(b) we might miss the train.", "(c) we will have plenty of time to spare.", "(d) we will arrive much before schedule."] },
-      { id: "Q10", question: "Synonym of BENEVOLENT:", options: ["(a) kind", "(b) cruel", "(c) selfish", "(d) hostile"] },
-      { id: "Q11", question: "Correctly spelt word:", options: ["(a) Artifact", "(b) Artifect", "(c) Arttefect", "(d) Arrtefact"] },
-      { id: "Q12", question: "Fill in the blank: The manager's decision to fire the employee was seen as a ______ act of revenge rather than a professional choice.", options: ["(a) vindictive", "(b) malicious", "(c) spiteful", "(d) callous"] },
-      { id: "Q13", question: "Fill in the blank: Despite his repeated failures, the entrepreneur remained ______ in his pursuit of success.", options: ["(a) obstinate", "(b) resolute", "(c) relentless", "(d) unwavering"] },
-      { id: "Q14", question: "Analogy: FLORIST : FLOWERS ::", options: ["(a) Chef : Food", "(b) Author : Books", "(c) Painter : Canvas", "(d) None of these"] },
-      { id: "Q15", question: "Analogy: SENTINEL : WATCH ::", options: ["(a) Artist : Paint", "(b) Soldier : Battle", "(c) Guard : Protect", "(d) None of these"] }
+      { id: "Q1", question: "Sentence Rearrangement:\nS1: The library is a place where knowledge is preserved and shared with all.\nP: Students and researchers often visit to find useful information for their studies.\nQ: It houses thousands of books, journals, and digital resources on various subjects.\nR: The peaceful environment helps visitors focus and absorb knowledge effectively.\nS: Librarians play a crucial role in organizing and maintaining these resources.\nS6: Thus, the library serves as a treasure trove of wisdom for generations.\nProper sequence:", options: ["(a) RSQP", "(b) PQRS", "(c) SQPR", "(d) QSPR"], answer: 3 },
+      { id: "Q2", question: "Idiom Meaning: \"To burn the midnight oil\"", options: ["(a) To waste time", "(b) To work late into the night", "(c) To celebrate all night", "(d) To sleep early"], answer: 1 },
+      { id: "Q3", question: "Idiom Meaning: \"Hit the nail on the head\"", options: ["(a) To make a mistake", "(b) To be very precise or accurate", "(c) To get hurt while working", "(d) To start an argument"], answer: 1 },
+      { id: "Q4", question: "Opposite word of ARDENT:", options: ["(a) Indifferent", "(b) Zealous", "(c) Fervent", "(d) Enthusiastic"], answer: 0 },
+      { id: "Q5", question: "Indirect Speech: She said, \"I have completed my assignment on time.\"", options: ["(a) She said that she had completed her assignment on time.", "(b) She said that I have completed my assignment on time.", "(c) She said that she completed her assignment on time.", "(d) None of these"], answer: 0 },
+      { id: "Q6", question: "Direct Speech: The teacher told the students that the Earth revolves around the Sun.", options: ["(a) The teacher said, \"The Earth revolved around the Sun.\"", "(b) The teacher said, \"The Earth revolves around the Sun.\"", "(c) The teacher said, \"The Earth is revolving around the Sun.\"", "(d) The teacher said, \"The Earth had revolved around the Sun.\""], answer: 1 },
+      { id: "Q7", question: "Sentence completion: Even though she was unwell, .......", options: ["(a) she continued working with determination.", "(b) she decided to go on a long vacation.", "(c) she avoided taking any rest at all.", "(d) she stopped working immediately."], answer: 0 },
+      { id: "Q8", question: "Sentence completion: The moment the fire alarm rang, .......", options: ["(a) everyone ignored it and continued their work.", "(b) people evacuated the building immediately.", "(c) the fire brigade arrived instantly.", "(d) the fire alarm stopped ringing."], answer: 1 },
+      { id: "Q9", question: "Sentence completion: If we don't leave now, ......", options: ["(a) we will reach the destination early.", "(b) we might miss the train.", "(c) we will have plenty of time to spare.", "(d) we will arrive much before schedule."], answer: 1 },
+      { id: "Q10", question: "Synonym of BENEVOLENT:", options: ["(a) kind", "(b) cruel", "(c) selfish", "(d) hostile"], answer: 0 },
+      { id: "Q11", question: "Correctly spelt word:", options: ["(a) Artifact", "(b) Artifect", "(c) Arttefect", "(d) Arrtefact"], answer: 0 },
+      { id: "Q12", question: "Fill in the blank: The manager's decision to fire the employee was seen as a ______ act of revenge rather than a professional choice.", options: ["(a) vindictive", "(b) malicious", "(c) spiteful", "(d) callous"], answer: 0 },
+      { id: "Q13", question: "Fill in the blank: Despite his repeated failures, the entrepreneur remained ______ in his pursuit of success.", options: ["(a) obstinate", "(b) resolute", "(c) relentless", "(d) unwavering"], answer: 1 },
+      { id: "Q14", question: "Analogy: FLORIST : FLOWERS ::", options: ["(a) Chef : Food", "(b) Author : Books", "(c) Painter : Canvas", "(d) None of these"], answer: 1 },
+      { id: "Q15", question: "Analogy: SENTINEL : WATCH ::", options: ["(a) Artist : Paint", "(b) Soldier : Battle", "(c) Guard : Protect", "(d) None of these"], answer: 2 }
     ],
     "QA": [
-      { id: "Q16", question: "On a certain principal, CI and SI for 2 years are ₹16,560 and ₹14,400 respectively. Find principal and rate per annum.", options: ["(a) 216,000, 13%", "(b) 20,000, 30%", "(c) 24,000, 30%", "(d) 24,000, 35%"] },
-      { id: "Q17", question: "x + y + z = 850. If x - 100, y - 25, z - 50, then x:y = 1:2, y:z = 5:6. Find original x + y.", options: ["(a) 400", "(b) 500", "(c) 550", "(d) 350"] },
-      { id: "Q18", question: "Find value of log(87600) + log(23100) - 8 = ?", options: ["(a) log(8.76) + log(2.31)", "(b) log(87.6) + log(23.1)", "(c) log(876) + log(231)", "(d) None of these"] },
-      { id: "Q19", question: "Ravi's avg expenditure Jan-Jun is ₹3200. Jul: ₹3000, Aug: ₹3600, Sep: ₹3900, Oct: ₹4200. Nov expenditure is 50% of Dec. Overall avg is ₹3200. Nov expenditure?", options: ["(a) 1600", "(b) 1400", "(c) 1700", "(d) 1500"] },
-      { id: "Q20", question: "Ram and Shyam are 10 km apart. See balloon at angles 60° and 30°. Balloon height?", options: ["(a) 4√3", "(b) 5√3", "(c) 3√3", "(d) 2√3"] },
-      { id: "Q21", question: "Manufacturer makes 1500 articles at 120 paisa/article. SP fixed so selling 1200 gives 80% profit on outlay. 240 spoilt, remaining sold at this SP. Actual profit %?", options: ["(a) 84", "(b) 82", "(c) 89", "(d) 86"] },
-      { id: "Q22", question: "Find missing number 'x':\nRow 1: 30, 102 -> 3050\nRow 2: 5, 8 -> 30\nRow 3: 5, 3 -> 5\nRow 4: 8, x -> 102", options: ["(a) 14", "(b) 12", "(c) None of these", "(d) 10"] },
-      { id: "Q23", question: "Box contains 3 red, 3 blue, 7 green marbles. Pick 2 randomly. Probability both are non-green?", options: ["(a) 3/26", "(b) 5/26", "(c) 9/26", "(d) 7/26"] },
-      { id: "Q24", question: "₹45,000 deposited for 4 years CI. Interest rate: 6% 1st yr, increases 1% every year. Approx amount at end of 4 yrs?", options: ["(a) 60,000", "(b) 70,000", "(c) 80,000", "(d) 90,000"] },
-      { id: "Q25", question: "Shopkeeper marks 30% above CP, gives 15% discount. Uses faulty weight 1kg for 800g. Actual profit %?", options: ["(a) 38.125%", "(b) 24.425%", "(c) 32.124%", "(d) None of these"] },
-      { id: "Q26", question: "Trapezium ABCD (AB || CD). ∠ABC=90°, ∠BAD=45°. CD=5cm, BC=4cm. Area?", options: ["(a) 20 cm²", "(b) None of these", "(c) 28 cm²", "(d) 24 cm²"] },
-      { id: "Q27", question: "School application problem: If 100 fewer applied and 50 fewer selected, ratio selected:unselected becomes 7:4. Original ratio 3:2. How many applied originally?", options: ["(a) 325", "(b) 415", "(c) 375", "(d) 425"] },
-      { id: "Q28", question: "Smallest number between 2000 and 3000 divisible by 21, 24, 28.", options: ["(a) None of these", "(b) 2000", "(c) 2352", "(d) 2016"] },
-      { id: "Q29", question: "Next term: 5, 6, 16, 57, 244, 1245, ?", options: ["(a) 7506", "(b) None of these", "(c) 5500", "(d) 4047"] },
-      { id: "Q30", question: "Rice weights: 435, 493, 551 kg. Packed in equal size bags without mixing. Least number of bags?", options: ["(a) 51", "(b) 56", "(c) 57", "(d) 54"] },
-      { id: "Q31", question: "₹776 divided among 300 boys and girls. Boy gets ₹2.40, girl gets ₹2.80. Total girls?", options: ["(a) 130", "(b) 140", "(c) 110", "(d) 120"] },
-      { id: "Q32", question: "Square root of 4^(6x²) * 25^(y/2) * 9^(z⁴):", options: ["(a) 4^(3x²) * 5^y * 3^(z⁴)", "(b) 4^(3x²) * 5^(y/2) * 9^(x²)", "(c) 4^(6x) * 25^(y/4) * 9^(x²)", "(d) 4^(3x²) * 5^(y/2) * 3^(z⁴)"] },
-      { id: "Q33", question: "Which year has lowest percentage fall in imports from previous year?", options: ["(a) 2021", "(b) 2024", "(c) 2023", "(d) 2020"] },
-      { id: "Q34", question: "2 oranges + 3 bananas + 4 apples = ₹15. 3 oranges + 2 bananas + 1 apple = ₹10. Cost of 3 oranges + 3 bananas + 3 apples?", options: ["(a) ₹10", "(b) ₹8", "(c) Cannot be determined", "(d) ₹15"] },
-      { id: "Q35", question: "Equal glasses with alcohol:water ratios 2:1 and 1:1 emptied into third glass. Final ratio?", options: ["(a) 5:7", "(b) 7:5", "(c) 7:6", "(d) 6:7"] }
+      { id: "Q16", question: "On a certain principal, CI and SI for 2 years are ₹16,560 and ₹14,400 respectively. Find principal and rate per annum.", options: ["(a) 216,000, 13%", "(b) 20,000, 30%", "(c) 24,000, 30%", "(d) 24,000, 35%"], answer: 2 },
+      { id: "Q17", question: "x + y + z = 850. If x - 100, y - 25, z - 50, then x:y = 1:2, y:z = 5:6. Find original x + y.", options: ["(a) 400", "(b) 500", "(c) 550", "(d) 350"], answer: 2 },
+      { id: "Q18", question: "Find value of log(87600) + log(23100) - 8 = ?", options: ["(a) log(8.76) + log(2.31)", "(b) log(87.6) + log(23.1)", "(c) log(876) + log(231)", "(d) None of these"], answer: 0 },
+      { id: "Q19", question: "Ravi's avg expenditure Jan-Jun is ₹3200. Jul: ₹3000, Aug: ₹3600, Sep: ₹3900, Oct: ₹4200. Nov expenditure is 50% of Dec. Overall avg is ₹3200. Nov expenditure?", options: ["(a) 1600", "(b) 1400", "(c) 1700", "(d) 1500"], answer: 0 },
+      { id: "Q20", question: "Ram and Shyam are 10 km apart. See balloon at angles 60° and 30°. Balloon height?", options: ["(a) 4√3", "(b) 5√3", "(c) 3√3", "(d) 2√3"], answer: 1 },
+      { id: "Q21", question: "Manufacturer makes 1500 articles at 120 paisa/article. SP fixed so selling 1200 gives 80% profit on outlay. 240 spoilt, remaining sold at this SP. Actual profit %?", options: ["(a) 84", "(b) 82", "(c) 89", "(d) 86"], answer: 0 },
+      { id: "Q22", question: "Find missing number 'x':\nRow 1: 30, 102 -> 3050\nRow 2: 5, 8 -> 30\nRow 3: 5, 3 -> 5\nRow 4: 8, x -> 102", options: ["(a) 14", "(b) 12", "(c) None of these", "(d) 10"], answer: 0 },
+      { id: "Q23", question: "Box contains 3 red, 3 blue, 7 green marbles. Pick 2 randomly. Probability both are non-green?", options: ["(a) 3/26", "(b) 5/26", "(c) 9/26", "(d) 7/26"], answer: 0 },
+      { id: "Q24", question: "₹45,000 deposited for 4 years CI. Interest rate: 6% 1st yr, increases 1% every year. Approx amount at end of 4 yrs?", options: ["(a) 60,000", "(b) 70,000", "(c) 80,000", "(d) 90,000"], answer: 0 },
+      { id: "Q25", question: "Shopkeeper marks 30% above CP, gives 15% discount. Uses faulty weight 1kg for 800g. Actual profit %?", options: ["(a) 38.125%", "(b) 24.425%", "(c) 32.124%", "(d) None of these"], answer: 0 },
+      { id: "Q26", question: "Trapezium ABCD (AB || CD). ∠ABC=90°, ∠BAD=45°. CD=5cm, BC=4cm. Area?", options: ["(a) 20 cm²", "(b) None of these", "(c) 28 cm²", "(d) 24 cm²"], answer: 3 },
+      { id: "Q27", question: "School application problem: If 100 fewer applied and 50 fewer selected, ratio selected:unselected becomes 7:4. Original ratio 3:2. How many applied originally?", options: ["(a) 325", "(b) 415", "(c) 375", "(d) 425"], answer: 2 },
+      { id: "Q28", question: "Smallest number between 2000 and 3000 divisible by 21, 24, 28.", options: ["(a) None of these", "(b) 2000", "(c) 2352", "(d) 2016"], answer: 3 },
+      { id: "Q29", question: "Next term: 5, 6, 16, 57, 244, 1245, ?", options: ["(a) 7506", "(b) None of these", "(c) 5500", "(d) 4047"], answer: 0 },
+      { id: "Q30", question: "Rice weights: 435, 493, 551 kg. Packed in equal size bags without mixing. Least number of bags?", options: ["(a) 51", "(b) 56", "(c) 57", "(d) 54"], answer: 2 },
+      { id: "Q31", question: "₹776 divided among 300 boys and girls. Boy gets ₹2.40, girl gets ₹2.80. Total girls?", options: ["(a) 130", "(b) 140", "(c) 110", "(d) 120"], answer: 3 },
+      { id: "Q32", question: "Square root of 4^(6x²) * 25^(y/2) * 9^(z⁴):", options: ["(a) 4^(3x²) * 5^y * 3^(z⁴)", "(b) 4^(3x²) * 5^(y/2) * 9^(x²)", "(c) 4^(6x) * 25^(y/4) * 9^(x²)", "(d) 4^(3x²) * 5^(y/2) * 3^(z⁴)"], answer: 3 },
+      { id: "Q33", question: "Which year has lowest percentage fall in imports from previous year?", options: ["(a) 2021", "(b) 2024", "(c) 2023", "(d) 2020"], answer: 2 },
+      { id: "Q34", question: "2 oranges + 3 bananas + 4 apples = ₹15. 3 oranges + 2 bananas + 1 apple = ₹10. Cost of 3 oranges + 3 bananas + 3 apples?", options: ["(a) ₹10", "(b) ₹8", "(c) Cannot be determined", "(d) ₹15"], answer: 3 },
+      { id: "Q35", question: "Equal glasses with alcohol:water ratios 2:1 and 1:1 emptied into third glass. Final ratio?", options: ["(a) 5:7", "(b) 7:5", "(c) 7:6", "(d) 6:7"], answer: 1 }
     ],
     "LR": [
-      { id: "Q36", question: "If 2nd October is Monday, 2nd November is:", options: ["(a) Friday", "(b) Tuesday", "(c) Thursday", "(d) Wednesday"] },
-      { id: "Q37", question: "Three thieves M, B, V. Only 1 tells truth.\nM: I am innocent\nB: I am innocent\nV: B is involved in robbery\nWho was involved?", options: ["(a) M", "(b) B", "(c) V", "(d) Cannot be determined"] },
-      { id: "Q38", question: "Clock set right Monday 3:00 AM, gains 2 mins/hr. Time in clock when actual time is 7:30 PM Tuesday?", options: ["(a) 8:48 PM", "(b) 8:45 PM", "(c) 8:51 PM", "(d) 9:10 PM"] },
-      { id: "Q39", question: "Missing code: L1#1O2-2, J2#2Q3-3, _______, F4#4U5-5, D5#5W6-6", options: ["(a) H3#3T4-4", "(b) None of these", "(c) H3#3S4-4", "(d) E3#3V4-4"] },
-      { id: "Q40", question: "A introduces B: \"She is the wife of the grandson of father of my father\". B to A?", options: ["(a) Sister-in-law", "(b) Daughter", "(c) Sister", "(d) Mother"] },
-      { id: "Q41", question: "Narmada Bachao Andolan : Medha Patkar :: Bhudan Andolan : ?", options: ["(a) Vinoba Bhave", "(b) Kailash Satyarthi", "(c) None of these", "(d) Jawahar Lal Nehru"] },
-      { id: "Q42", question: "Complete series: 14, 26, 36, 44, 50, _____", options: ["(a) 54", "(b) None", "(c) 48", "(d) 52"] },
-      { id: "Q43", question: "Statement: Office notice to mark online facial recognition attendance.\nAssumptions: 1. Notice will be read. 2. Online attendance benefits company.", options: ["(a) Only 1", "(b) Only 2", "(c) Neither", "(d) Both"] },
-      { id: "Q44", question: "Earthquake in ocean -> Tsunami -> 192 deaths & $7M loss. Identify effects:", options: ["(a) Death, Tsunami Wave, Property loss", "(b) Damage House, Tsunami Wave, Property loss", "(c) Casualties, Prop Loss, Death", "(d) Tectonic Movement, Death, Earthquake"] },
-      { id: "Q45", question: "Statements: Some M are L. All H are W. Some W are M.\nConclusions: I. All M are W II. Some H are L III. Some W are H", options: ["(a) None of the statements", "(b) I & III", "(c) Only III", "(d) Only I"] },
-      { id: "Q46", question: "Angle between clock hands at 5:55 PM:", options: ["(a) 150°", "(b) 152.5°", "(c) 155.5°", "(d) 125.5°"] },
-      { id: "Q47", question: "If 9th Dec 2007 is Sunday, 8th July 2007 was:", options: ["(a) Tuesday", "(b) Thursday", "(c) Friday", "(d) Saturday"] },
-      { id: "Q48", question: "Cuckoo strikes at regular intervals, takes 10s to strike at 6 o'clock. Seconds to strike at 10 o'clock?", options: ["(a) 10 seconds", "(b) 15 seconds", "(c) 16.7 seconds", "(d) 16 seconds"] },
-      { id: "Q49", question: "How is Mrs. Mohan related to Sumit? (Based on family tree puzzle)", options: ["(a) Aunt", "(b) Mother-in-law", "(c) Mother", "(d) Sister-in-law"] },
-      { id: "Q50", question: "Surname of Sohan?", options: ["(a) Sharma", "(b) Mohan", "(c) Mishra", "(d) Raghu"] },
-      { id: "Q51", question: "Raj walks X to Y (80m), turns right (50m), turns right (70m), turns right (50m). Distance from start?", options: ["(a) 10 metres", "(b) 20 metres", "(c) 50 metres", "(d) 70 metres"] },
-      { id: "Q52", question: "Arranged descending by age, 3rd position? (Based on 5 friends puzzle)", options: ["(a) Parul", "(b) Keshav", "(c) Nikku", "(d) None of these"] },
-      { id: "Q53", question: "Arranged ascending by height, 4th position?", options: ["(a) Nikku", "(b) Parul", "(c) Rekha", "(d) Keshav"] },
-      { id: "Q54", question: "Meaningful word from 2nd, 5th, 8th letters of 'CARETAKER':", options: ["(a) A", "(b) E", "(c) X", "(d) M"] },
-      { id: "Q55", question: "Venn diagram: Triangle(small)=teachers, Triangle(big)=politicians, Circle=graduates, Rectangle=MP.\nGraduates or teachers but NOT politicians:", options: ["(a) B, G", "(b) G, H", "(c) A, E", "(d) E, F"] },
-      { id: "Q56", question: "Graduate politicians but NOT MP:", options: ["(a) B, C", "(b) L, B", "(c) D, L", "(d) A, H, L"] },
-      { id: "Q57", question: "Statements: 'All sweet things are fluids', 'Some fluids are coloured things'.\nImplies:\nA. Some sweet things are coloured\nB. Some sweet things are fluids\nC. All fluids are sweet\nD. Some fluids are sweet", options: ["(a) A, B and C only", "(b) A and C only", "(c) B, C and D only", "(d) A, C and D only"] },
-      { id: "Q58", question: "Four trees (Lemon, Coconut, Mango, Neem) at corners. Well & Cabin at opposite corners. Lemon & Coconut on sides of gate opposite Well/Cabin side. Mango not at Cabin corner. Diagonally opposite pair?", options: ["(a) Cabin and Neem tree", "(b) Coconut tree and Lemon tree", "(c) Mango tree and Well", "(d) Neem tree and Lemon tree"] },
-      { id: "Q59", question: "Missing pattern: B2CD, DE3F, _______, H5IJ, J6KL", options: ["(a) G3HI", "(b) FG4H", "(c) D3GH", "(d) FGH4"] },
-      { id: "Q60", question: "Rearrange 1-R, 2-A, 3-C, 4-E, 5-T to form meaningful word:", options: ["(a) 1, 2, 3, 4, 5", "(b) 3, 2, 1, 4, 5", "(c) 5, 2, 3, 4, 1", "(d) 5, 1, 2, 3, 4"] }
+      { id: "Q36", question: "If 2nd October is Monday, 2nd November is:", options: ["(a) Friday", "(b) Tuesday", "(c) Thursday", "(d) Wednesday"], answer: 3 },
+      { id: "Q37", question: "Three thieves M, B, V. Only 1 tells truth.\nM: I am innocent\nB: I am innocent\nV: B is involved in robbery\nWho was involved?", options: ["(a) M", "(b) B", "(c) V", "(d) Cannot be determined"], answer: 0 },
+      { id: "Q38", question: "Clock set right Monday 3:00 AM, gains 2 mins/hr. Time in clock when actual time is 7:30 PM Tuesday?", options: ["(a) 8:48 PM", "(b) 8:45 PM", "(c) 8:51 PM", "(d) 9:10 PM"], answer: 0 },
+      { id: "Q39", question: "Missing code: L1#1O2-2, J2#2Q3-3, _______, F4#4U5-5, D5#5W6-6", options: ["(a) H3#3T4-4", "(b) None of these", "(c) H3#3S4-4", "(d) E3#3V4-4"], answer: 0 },
+      { id: "Q40", question: "A introduces B: \"She is the wife of the grandson of father of my father\". B to A?", options: ["(a) Sister-in-law", "(b) Daughter", "(c) Sister", "(d) Mother"], answer: 0 },
+      { id: "Q41", question: "Narmada Bachao Andolan : Medha Patkar :: Bhudan Andolan : ?", options: ["(a) Vinoba Bhave", "(b) Kailash Satyarthi", "(c) None of these", "(d) Jawahar Lal Nehru"], answer: 0 },
+      { id: "Q42", question: "Complete series: 14, 26, 36, 44, 50, _____", options: ["(a) 54", "(b) None", "(c) 48", "(d) 52"], answer: 3 },
+      { id: "Q43", question: "Statement: Office notice to mark online facial recognition attendance.\nAssumptions: 1. Notice will be read. 2. Online attendance benefits company.", options: ["(a) Only 1", "(b) Only 2", "(c) Neither", "(d) Both"], answer: 3 },
+      { id: "Q44", question: "Earthquake in ocean -> Tsunami -> 192 deaths & $7M loss. Identify effects:", options: ["(a) Death, Tsunami Wave, Property loss", "(b) Damage House, Tsunami Wave, Property loss", "(c) Casualties, Prop Loss, Death", "(d) Tectonic Movement, Death, Earthquake"], answer: 0 },
+      { id: "Q45", question: "Statements: Some M are L. All H are W. Some W are M.\nConclusions: I. All M are W II. Some H are L III. Some W are H", options: ["(a) None of the statements", "(b) I & III", "(c) Only III", "(d) Only I"], answer: 2 },
+      { id: "Q46", question: "Angle between clock hands at 5:55 PM:", options: ["(a) 150°", "(b) 152.5°", "(c) 155.5°", "(d) 125.5°"], answer: 1 },
+      { id: "Q47", question: "If 9th Dec 2007 is Sunday, 8th July 2007 was:", options: ["(a) Tuesday", "(b) Thursday", "(c) Friday", "(d) Saturday"], answer: 3 },
+      { id: "Q48", question: "Cuckoo strikes at regular intervals, takes 10s to strike at 6 o'clock. Seconds to strike at 10 o'clock?", options: ["(a) 10 seconds", "(b) 15 seconds", "(c) 16.7 seconds", "(d) 16 seconds"], answer: 2 },
+      { id: "Q49", question: "How is Mrs. Mohan related to Sumit? (Based on family tree puzzle)", options: ["(a) Aunt", "(b) Mother-in-law", "(c) Mother", "(d) Sister-in-law"], answer: 1 },
+      { id: "Q50", question: "Surname of Sohan?", options: ["(a) Sharma", "(b) Mohan", "(c) Mishra", "(d) Raghu"], answer: 0 },
+      { id: "Q51", question: "Raj walks X to Y (80m), turns right (50m), turns right (70m), turns right (50m). Distance from start?", options: ["(a) 10 metres", "(b) 20 metres", "(c) 50 metres", "(d) 70 metres"], answer: 0 },
+      { id: "Q52", question: "Arranged descending by age, 3rd position? (Based on 5 friends puzzle)", options: ["(a) Parul", "(b) Keshav", "(c) Nikku", "(d) None of these"], answer: 2 },
+      { id: "Q53", question: "Arranged ascending by height, 4th position?", options: ["(a) Nikku", "(b) Parul", "(c) Rekha", "(d) Keshav"], answer: 1 },
+      { id: "Q54", question: "Meaningful word from 2nd, 5th, 8th letters of 'CARETAKER':", options: ["(a) A", "(b) E", "(c) X", "(d) M"], answer: 0 },
+      { id: "Q55", question: "Venn diagram: Triangle(small)=teachers, Triangle(big)=politicians, Circle=graduates, Rectangle=MP.\nGraduates or teachers but NOT politicians:", options: ["(a) B, G", "(b) G, H", "(c) A, E", "(d) E, F"], answer: 3 },
+      { id: "Q56", question: "Graduate politicians but NOT MP:", options: ["(a) B, C", "(b) L, B", "(c) D, L", "(d) A, H, L"], answer: 3 },
+      { id: "Q57", question: "Statements: 'All sweet things are fluids', 'Some fluids are coloured things'.\nImplies:\nA. Some sweet things are coloured\nB. Some sweet things are fluids\nC. All fluids are sweet\nD. Some fluids are sweet", options: ["(a) A, B and C only", "(b) A and C only", "(c) B, C and D only", "(d) A, C and D only"], answer: 3 },
+      { id: "Q58", question: "Four trees (Lemon, Coconut, Mango, Neem) at corners. Well & Cabin at opposite corners. Lemon & Coconut on sides of gate opposite Well/Cabin side. Mango not at Cabin corner. Diagonally opposite pair?", options: ["(a) Cabin and Neem tree", "(b) Coconut tree and Lemon tree", "(c) Mango tree and Well", "(d) Neem tree and Lemon tree"], answer: 1 },
+      { id: "Q59", question: "Missing pattern: B2CD, DE3F, _______, H5IJ, J6KL", options: ["(a) G3HI", "(b) FG4H", "(c) D3GH", "(d) FGH4"], answer: 1 },
+      { id: "Q60", question: "Rearrange 1-R, 2-A, 3-C, 4-E, 5-T to form meaningful word:", options: ["(a) 1, 2, 3, 4, 5", "(b) 3, 2, 1, 4, 5", "(c) 5, 2, 3, 4, 1", "(d) 5, 1, 2, 3, 4"], answer: 3 }
     ]
   },
   "2025": {
     "VARC": [
-      { id: "Q1", question: "Daniel Wheeler, at the head of his own table, was a charming host, and his ______ disappeared as the talk ran along on subjects grave or gay, but of no personal ______", options: ["A. gloom, potent", "B. cheer, intent", "C. melancholy, import", "D. joy, consequence"] },
-      { id: "Q2", question: "Select the most appropriate antonym of PREPOSTEROUS:", options: ["A. Absurd", "B. Fantastic", "C. Insane", "D. Logical"] },
-      { id: "Q3", question: "Fill in the blank: There is no such movie ______ you mention.", options: ["A. which", "B. that", "C. as", "D. who"] },
-      { id: "Q4", question: "Grammatical error spot:\n(a) Even though every country has /\n(b) diverse sets of experience, I believe /\n(c) the global community can reach similar targets /\n(d) and common policies that deepen universal connection", options: ["A. (a)", "B. (b)", "C. (c)", "D. (d)"] },
-      { id: "Q5", question: "Fill in the blanks:\nChina's ultra-rich are ______ to make high-profile philanthropic donations to shore ______ their reputations...", options: ["A. enthusiastic, in", "B. competing, with", "C. working, off", "D. scrambling, up"] },
-      { id: "Q6", question: "Identify Figure of Speech:\n\"It was claimed to be the most hi-tech train the country has ever seen but it got derailed in its first run.\"", options: ["A. Hyperbole", "B. Irony", "C. Metaphor", "D. Paradox"] },
-      { id: "Q7", question: "Match \"best\" part of speech:\n1. Noun -> (iii) She can afford the best of everything.\n2. Adverb -> (i) You need to find out which program works best on your computer.\n3. Adjective -> (ii) At the wedding he'll be wearing his best suit.\n4. Verb -> (iv) My goal is to best the competition.", options: ["A. 1-(ii), 2-(i), 3-(iii), 4-(iv)", "B. 1-(iii), 2-(i), 3-(ii), 4-(iv)", "C. 1-(iii), 2-(iv), 3-(ii), 4-(i)", "D. 1-(i), 2-(iii), 3-(ii), 4-(iv)"] },
-      { id: "Q8", question: "Idiom: Golden handshake", options: ["A. Shaking hands with golden gloves", "B. Good amount of money on early retirement", "C. Getting paid for doing nothing", "D. Cracking a good deal"] },
-      { id: "Q9", question: "Compound word:", options: ["A. Hopscotch", "B. Frightened", "C. Acronym", "D. Trimester"] },
-      { id: "Q10", question: "Incorrect phrasal verb usage:", options: ["A. The end product turned out okay in spite of the many production issues", "B. The judge issued an arrest warrant against the official who failed to turn up despite judicial summons", "C. You need to turn in the assignment by Monday", "D. I am going to turn myself in so that I can get up early. Good night!"] },
-      { id: "Q11", question: "At a certain season of our life we are ______ to consider every spot as the possible site of a house. I have thus ______ the country on every side...", options: ["A. accustomed, observed", "B. habitual, surveyed", "C. adapted, travelled", "D. accustomed, surveyed"] },
-      { id: "Q12", question: "Convert to Passive Voice: \"The mechanic remodelled the bike to help it sell at a high price.\"", options: ["A. The bike has been remodelled by the mechanic to help it sell at a high price.", "B. The bike is remodelled by the mechanic to help it sell at a high price.", "C. The bike was sold at a high price by the mechanic after remodelling.", "D. The bike was remodelled by the mechanic to help it sell at a high price."] },
-      { id: "Q13", question: "Parts of speech: The principal (1) of the school emphasized that the principal (2) reason for policy change was student safety.", options: ["A. adjective, adverb", "B. noun, adverb", "C. adjective, noun", "D. noun, adjective"] },
-      { id: "Q14", question: "Fill in the blank: Last week, the central bank ______ all banks to provide a three-month moratorium...", options: ["A. asked", "B. order", "C. provided", "D. directed"] },
-      { id: "Q15", question: "Correct spelling:", options: ["A. innosence", "B. indictment", "C. disastrus", "D. embarass"] }
+      { id: "Q1", question: "Daniel Wheeler, at the head of his own table, was a charming host, and his ______ disappeared as the talk ran along on subjects grave or gay, but of no personal ______", options: ["A. gloom, potent", "B. cheer, intent", "C. melancholy, import", "D. joy, consequence"], answer: 2 },
+      { id: "Q2", question: "Select the most appropriate antonym of PREPOSTEROUS:", options: ["A. Absurd", "B. Fantastic", "C. Insane", "D. Logical"], answer: 3 },
+      { id: "Q3", question: "Fill in the blank: There is no such movie ______ you mention.", options: ["A. which", "B. that", "C. as", "D. who"], answer: 2 },
+      { id: "Q4", question: "Grammatical error spot:\n(a) Even though every country has /\n(b) diverse sets of experience, I believe /\n(c) the global community can reach similar targets /\n(d) and common policies that deepen universal connection", options: ["A. (a)", "B. (b)", "C. (c)", "D. (d)"], answer: 1 },
+      { id: "Q5", question: "Fill in the blanks:\nChina's ultra-rich are ______ to make high-profile philanthropic donations to shore ______ their reputations...", options: ["A. enthusiastic, in", "B. competing, with", "C. working, off", "D. scrambling, up"], answer: 3 },
+      { id: "Q6", question: "Identify Figure of Speech:\n\"It was claimed to be the most hi-tech train the country has ever seen but it got derailed in its first run.\"", options: ["A. Hyperbole", "B. Irony", "C. Metaphor", "D. Paradox"], answer: 1 },
+      { id: "Q7", question: "Match \"best\" part of speech:\n1. Noun -> (iii) She can afford the best of everything.\n2. Adverb -> (i) You need to find out which program works best on your computer.\n3. Adjective -> (ii) At the wedding he'll be wearing his best suit.\n4. Verb -> (iv) My goal is to best the competition.", options: ["A. 1-(ii), 2-(i), 3-(iii), 4-(iv)", "B. 1-(iii), 2-(i), 3-(ii), 4-(iv)", "C. 1-(iii), 2-(iv), 3-(ii), 4-(i)", "D. 1-(i), 2-(iii), 3-(ii), 4-(iv)"], answer: 1 },
+      { id: "Q8", question: "Idiom: Golden handshake", options: ["A. Shaking hands with golden gloves", "B. Good amount of money on early retirement", "C. Getting paid for doing nothing", "D. Cracking a good deal"], answer: 1 },
+      { id: "Q9", question: "Compound word:", options: ["A. Hopscotch", "B. Frightened", "C. Acronym", "D. Trimester"], answer: 0 },
+      { id: "Q10", question: "Incorrect phrasal verb usage:", options: ["A. The end product turned out okay in spite of the many production issues", "B. The judge issued an arrest warrant against the official who failed to turn up despite judicial summons", "C. You need to turn in the assignment by Monday", "D. I am going to turn myself in so that I can get up early. Good night!"], answer: 3 },
+      { id: "Q11", question: "At a certain season of our life we are ______ to consider every spot as the possible site of a house. I have thus ______ the country on every side...", options: ["A. accustomed, observed", "B. habitual, surveyed", "C. adapted, travelled", "D. accustomed, surveyed"], answer: 3 },
+      { id: "Q12", question: "Convert to Passive Voice: \"The mechanic remodelled the bike to help it sell at a high price.\"", options: ["A. The bike has been remodelled by the mechanic to help it sell at a high price.", "B. The bike is remodelled by the mechanic to help it sell at a high price.", "C. The bike was sold at a high price by the mechanic after remodelling.", "D. The bike was remodelled by the mechanic to help it sell at a high price."], answer: 3 },
+      { id: "Q13", question: "Parts of speech: The principal (1) of the school emphasized that the principal (2) reason for policy change was student safety.", options: ["A. adjective, adverb", "B. noun, adverb", "C. adjective, noun", "D. noun, adjective"], answer: 3 },
+      { id: "Q14", question: "Fill in the blank: Last week, the central bank ______ all banks to provide a three-month moratorium...", options: ["A. asked", "B. order", "C. provided", "D. directed"], answer: 3 },
+      { id: "Q15", question: "Correct spelling:", options: ["A. innosence", "B. indictment", "C. disastrus", "D. embarass"], answer: 1 }
     ],
     "QA": [
-      { id: "Q16", question: "Avg weight of 10 students = 30 kg. Include teacher A -> avg = 33 kg. Include teacher B -> avg = 34 kg. Weight of teacher B?", options: ["A. 45 kg", "B. 63 kg", "C. 70 kg", "D. 75 kg"] },
-      { id: "Q17", question: "3/4 of A = 1/3 of B = 30% of C. Ratio A:B:C = ?", options: ["A. 4:8:9", "B. 6:9:10", "C. 4:9:10", "D. 4:9:12"] },
-      { id: "Q18", question: "P sold watch to Q at ₹y. Q sold to R at 10% loss. R sold to T at 33.33% profit. T bought for ₹1176. Find (11/7) * y.", options: ["A. ₹1420", "B. ₹1860", "C. ₹1540", "D. ₹1280"] },
-      { id: "Q19", question: "Smallest number divided by 16, 17, 20 leaving remainders 13, 14, 17.", options: ["A. 1357", "B. 1460", "C. 1268", "D. 1456"] },
-      { id: "Q20", question: "If sin(θ) = 4/5, find (tan(θ) + 1)/(tan(θ) - 1).", options: ["A. 5", "B. 3", "C. 1", "D. 7"] },
-      { id: "Q21", question: "Suman observes tree top across 40m wide river at 60°. Height of tree?", options: ["A. 20/√3", "B. 40√3", "C. 10√7", "D. 20√5"] },
-      { id: "Q22", question: "Amount at end of 2nd and 3rd year at CI are ₹2640 and ₹2772. Rate of interest?", options: ["A. 6%", "B. 7%", "C. 5%", "D. 4%"] },
-      { id: "Q23", question: "Votes: P=300, Q=250, R=200, S=150, T=100. Ratio of 2 highest polling to 2 lowest polling?", options: ["A. 5:11", "B. 11:5", "C. 5:2", "D. 2:5"] },
-      { id: "Q24", question: "If log_n(75) = p and log_n(45) = q, log_n(15) = ?", options: ["A. (p+q)/3", "B. (p+q)/2", "C. (2p+2q)/3", "D. (3p+3q)/2"] },
-      { id: "Q25", question: "Value of log(2) + log(4) + log(8) + ... + log(2^n) where log(2) = x:", options: ["A. n(n+1)x / 2", "B. n(n+1)(2n+1)x / 6", "C. nx", "D. n(n+1)x"] },
-      { id: "Q26", question: "Class of 60: 40 passed English, 45 passed Computers, 5 failed both. Passed both?", options: ["A. 22", "B. 30", "C. 24", "D. 25"] },
-      { id: "Q27", question: "Probability vowels appear together in permutations of 'COMPUTER':", options: ["A. 3/168", "B. 5/84", "C. 3/84", "D. 3/28"] },
-      { id: "Q28", question: "400m race: A beats B by 40m, C by 80m. In 200m race, B beats C by?", options: ["A. 20 metres", "B. 22.22 metres", "C. 18.88 metres", "D. 23.33 metres"] },
-      { id: "Q29", question: "A, B, C complete project in n days. Together take (1/5)th time A alone takes, or (2/3)rd time B alone takes. Time C alone takes?", options: ["A. 10n days", "B. 5n/2 days", "C. 8n days", "D. 15n/2 days"] },
-      { id: "Q30", question: "Sum to infinity: 6/(2*3*4) + 7/(3*4*5) + 8/(4*5*6) + ...", options: ["A. 1/2", "B. 4/5", "C. 2/3", "D. 3/4"] },
-      { id: "Q31", question: "Bulbs: 40% blue, 20% green, 40% red. 30% red defective. Overall 24% defective. 80% blue non-defective. If defective blue = 120, non-defective green = ?", options: ["A. 60", "B. 120", "C. 240", "D. 360"] },
-      { id: "Q32", question: "23 pens + 60 pencils + 28 erasers = ₹2530. 17 pens + 44 pencils + 21 erasers = ₹1890. Cost of 4 pens + 16 pencils?", options: ["A. 80", "B. 120", "C. 160", "D. Cannot be determined"] },
-      { id: "Q33", question: "System of equations has NO solution:\n9ax + 2y = 3\n4x + (2-a)y = 2\nCondition:", options: ["A. 3a - 4 = 0", "B. 3a - 2 = 0", "C. 3a + 2 = 0", "D. 3a + 4 = 0"] },
-      { id: "Q34", question: "Probability that a 3-digit palindrome number is divisible by 9?", options: ["A. 1/10", "B. 1/9", "C. 1/8", "D. 1/7"] },
-      { id: "Q35", question: "2 dice rolled: Probability sum is prime AND at least one individual roll is prime?", options: ["A. 5/18", "B. 1/3", "C. 11/36", "D. 1/4"] }
+      { id: "Q16", question: "Avg weight of 10 students = 30 kg. Include teacher A -> avg = 33 kg. Include teacher B -> avg = 34 kg. Weight of teacher B?", options: ["A. 45 kg", "B. 63 kg", "C. 70 kg", "D. 75 kg"], answer: 1 },
+      { id: "Q17", question: "3/4 of A = 1/3 of B = 30% of C. Ratio A:B:C = ?", options: ["A. 4:8:9", "B. 6:9:10", "C. 4:9:10", "D. 4:9:12"], answer: 2 },
+      { id: "Q18", question: "P sold watch to Q at ₹y. Q sold to R at 10% loss. R sold to T at 33.33% profit. T bought for ₹1176. Find (11/7) * y.", options: ["A. ₹1420", "B. ₹1860", "C. ₹1540", "D. ₹1280"], answer: 2 },
+      { id: "Q19", question: "Smallest number divided by 16, 17, 20 leaving remainders 13, 14, 17.", options: ["A. 1357", "B. 1460", "C. 1268", "D. 1456"], answer: 0 },
+      { id: "Q20", question: "If sin(θ) = 4/5, find (tan(θ) + 1)/(tan(θ) - 1).", options: ["A. 5", "B. 3", "C. 1", "D. 7"], answer: 3 },
+      { id: "Q21", question: "Suman observes tree top across 40m wide river at 60°. Height of tree?", options: ["A. 20/√3", "B. 40√3", "C. 10√7", "D. 20√5"], answer: 1 },
+      { id: "Q22", question: "Amount at end of 2nd and 3rd year at CI are ₹2640 and ₹2772. Rate of interest?", options: ["A. 6%", "B. 7%", "C. 5%", "D. 4%"], answer: 2 },
+      { id: "Q23", question: "Votes: P=300, Q=250, R=200, S=150, T=100. Ratio of 2 highest polling to 2 lowest polling?", options: ["A. 5:11", "B. 11:5", "C. 5:2", "D. 2:5"], answer: 1 },
+      { id: "Q24", question: "If log_n(75) = p and log_n(45) = q, log_n(15) = ?", options: ["A. (p+q)/3", "B. (p+q)/2", "C. (2p+2q)/3", "D. (3p+3q)/2"], answer: 2 },
+      { id: "Q25", question: "Value of log(2) + log(4) + log(8) + ... + log(2^n) where log(2) = x:", options: ["A. n(n+1)x / 2", "B. n(n+1)(2n+1)x / 6", "C. nx", "D. n(n+1)x"], answer: 0 },
+      { id: "Q26", question: "Class of 60: 40 passed English, 45 passed Computers, 5 failed both. Passed both?", options: ["A. 22", "B. 30", "C. 24", "D. 25"], answer: 1 },
+      { id: "Q27", question: "Probability vowels appear together in permutations of 'COMPUTER':", options: ["A. 3/168", "B. 5/84", "C. 3/84", "D. 3/28"], answer: 1 },
+      { id: "Q28", question: "400m race: A beats B by 40m, C by 80m. In 200m race, B beats C by?", options: ["A. 20 metres", "B. 22.22 metres", "C. 18.88 metres", "D. 23.33 metres"], answer: 3 },
+      { id: "Q29", question: "A, B, C complete project in n days. Together take (1/5)th time A alone takes, or (2/3)rd time B alone takes. Time C alone takes?", options: ["A. 10n days", "B. 5n/2 days", "C. 8n days", "D. 15n/2 days"], answer: 3 },
+      { id: "Q30", question: "Sum to infinity: 6/(2*3*4) + 7/(3*4*5) + 8/(4*5*6) + ...", options: ["A. 1/2", "B. 4/5", "C. 2/3", "D. 3/4"], answer: 3 },
+      { id: "Q31", question: "Bulbs: 40% blue, 20% green, 40% red. 30% red defective. Overall 24% defective. 80% blue non-defective. If defective blue = 120, non-defective green = ?", options: ["A. 60", "B. 120", "C. 240", "D. 360"], answer: 2 },
+      { id: "Q32", question: "23 pens + 60 pencils + 28 erasers = ₹2530. 17 pens + 44 pencils + 21 erasers = ₹1890. Cost of 4 pens + 16 pencils?", options: ["A. 80", "B. 120", "C. 160", "D. Cannot be determined"], answer: 2 },
+      { id: "Q33", question: "System of equations has NO solution:\n9ax + 2y = 3\n4x + (2-a)y = 2\nCondition:", options: ["A. 3a - 4 = 0", "B. 3a - 2 = 0", "C. 3a + 2 = 0", "D. 3a + 4 = 0"], answer: 3 },
+      { id: "Q34", question: "Probability that a 3-digit palindrome number is divisible by 9?", options: ["A. 1/10", "B. 1/9", "C. 1/8", "D. 1/7"], answer: 0 },
+      { id: "Q35", question: "2 dice rolled: Probability sum is prime AND at least one individual roll is prime?", options: ["A. 5/18", "B. 1/3", "C. 11/36", "D. 1/4"], answer: 0 }
     ],
     "LR": [
-      { id: "Q36", question: "Missing number:\n8 | 24 | 12\n7 | ?  | 24\n9 | 45 | 32", options: ["A. 42", "B. 36", "C. 37", "D. 32"] },
-      { id: "Q37", question: "Replace ?: 17, 24, 32, 38, ?", options: ["A. 46", "B. 62", "C. 70", "D. 68"] },
-      { id: "Q38", question: "Replace ?: B, C, E, G, K, M, ?", options: ["A. P", "B. O", "C. Q", "D. S"] },
-      { id: "Q39", question: "Praise : Criticism :: Urge : ?", options: ["A. Force", "B. Request", "C. Deter", "D. Increase"] },
-      { id: "Q40", question: "Meaningful order: 1. Write, 2. Read, 3. Choosing topic, 4. Publish, 5. Format", options: ["A. 3, 5, 4, 1, 2", "B. 3, 5, 1, 4, 2", "C. 3, 4, 1, 5, 2", "D. 3, 1, 5, 4, 2"] },
-      { id: "Q41", question: "Odd one out:", options: ["A. (16, 24, 42)", "B. (34, 81, 61)", "C. (14, 23, 25)", "D. (18, 72, 81)"] },
-      { id: "Q42", question: "Queue of 30 boys: 22 in front of Kunal, 12 behind Rohit. Boys between Kunal and Rohit?", options: ["A. 3", "B. 4", "C. 6", "D. 5"] },
-      { id: "Q43", question: "Defective keyboard: A -> ABCA, B -> BACB, C -> ABCB. Typed 48 letter sequence: ABCCBAABCCBA... 100th character on screen?", options: ["A. A", "B. B", "C. C", "D. cannot be determined"] },
-      { id: "Q44", question: "Floor arrangement: A & E live on even floors. C above them. D above C. F not on bottom floor. B on remaining floor. Who lives on floor 3?", options: ["A. B", "B. C", "C. D", "D. F"] },
-      { id: "Q45", question: "Using same arrangement as Q44, who lives on floor 5?", options: ["A. D", "B. C", "C. F", "D. B"] },
-      { id: "Q46", question: "\"He is the only son of only daughter of my grandfather.\" How is Ram related to man in photograph?", options: ["A. Brother", "B. Cousin", "C. Brother-in-law", "D. Can't be determined"] },
-      { id: "Q47", question: "\"Kawan's grandson is the only son of my sister.\" How is Kawan related to Sheena (if Kawan has a wife)?", options: ["A. Father", "B. Father-in-law", "C. Uncle", "D. Cannot be determined"] },
-      { id: "Q48", question: "1st Jan 2000 was Saturday. First Monday in August 2005 falls on?", options: ["A. 1st", "B. 4th", "C. 3rd", "D. 6th"] },
-      { id: "Q49", question: "Time between 7 and 8 o'clock hands in same straight line but opposite?", options: ["A. 5(5/11) past 7", "B. 4(5/11) past 7", "C. 5(4/11) past 7", "D. 5(3/11) past 7"] },
-      { id: "Q50", question: "15 June 2007 was Sunday. Day on 14 July 2009?", options: ["A. Tuesday", "B. Friday", "C. Monday", "D. Thursday"] },
-      { id: "Q51", question: "Statements: All phones are desktops. All computers are televisions. No desktop is a computer.\nConclusions: I. Some televisions can be phones. II. No computer is a phone.", options: ["A. Only I", "B. Only II", "C. Neither", "D. Both I and II"] },
-      { id: "Q52", question: "3 friends know other two's result. Teacher says \"At least one failed\". None knew own result after statement.", options: ["A. One student failed.", "B. Two students failed.", "C. Two or more students failed.", "D. All three failed."] },
-      { id: "Q53", question: "Increase GDP by 40% to avoid economic collapse. Once 40% reached, 50% is easy. Which is true?", options: ["A. Economy fails if not able to increase by 50%", "B. GDP 50% increase if economy fails", "C. Economy will not fail if it can increase economy by 50%", "D. 10% increase not possible even after 40%"] },
-      { id: "Q54", question: "Weaken argument: \"Jadeja is bad batsman because he scored least on recent tour.\"", options: ["A. Exceptional bowling/fielding", "B. Started as bowler", "C. Played with experimental heavy bat by captain's order", "D. Top scorer 2 years ago"] },
-      { id: "Q55", question: "Course of action: Foreign national killed by uncontacted tribe after trespassing prohibited island.", options: ["A. Issue public apology and ensure no recurrence", "B. Arrest tribal people", "C. Explain foreign national was at fault for trespassing", "D. Conduct awareness camps for tribe"] },
-      { id: "Q56", question: "Assumption: Prevent tick infestation by keeping plumbing in good condition.", options: ["A. Ticks cannot be filtered from air", "B. House owners know plumbing", "C. Ticks cannot grow in dry areas", "D. Ticks do not cause moisture"] },
-      { id: "Q57", question: "Flaw in manager's plan: Rejecting exactly 50/200 shoes weekly to maintain standard assumes:", options: ["A. Cannot accept all shoes", "B. Quality won't improve if production reduced", "C. Each shoe reviewed is worthy", "D. The 150 accepted shoes will be of same quality week to week"] },
-      { id: "Q58", question: "Beas reserve passage on Indus river dolphins. Conclusion:", options: ["A. No human movement -> better water quality", "B. Good water quality -> higher spotting of aquatic life", "C. Dolphins rarest mammals, seen more if clean water", "D. All of the above"] },
-      { id: "Q59", question: "Statement: Children without proper care suffer malnutrition.\nConclusions: I. Malnutrition child deaths on rise since 2000. II. All malnourished children lacked care.", options: ["A. Only I", "B. Only II", "C. Both", "D. Neither"] },
-      { id: "Q60", question: "Statements: African countries face population rise & resource depletion.\nConclusions: I. Developing countries face similar problem today. II. Governments will struggle to provide quality of life.", options: ["A. Only I", "B. Only II", "C. Neither", "D. Both"] }
+      { id: "Q36", question: "Missing number:\n8 | 24 | 12\n7 | ?  | 24\n9 | 45 | 32", options: ["A. 42", "B. 36", "C. 37", "D. 32"], answer: 0 },
+      { id: "Q37", question: "Replace ?: 17, 24, 32, 38, ?", options: ["A. 46", "B. 62", "C. 70", "D. 68"], answer: 0 },
+      { id: "Q38", question: "Replace ?: B, C, E, G, K, M, ?", options: ["A. P", "B. O", "C. Q", "D. S"], answer: 2 },
+      { id: "Q39", question: "Praise : Criticism :: Urge : ?", options: ["A. Force", "B. Request", "C. Deter", "D. Increase"], answer: 2 },
+      { id: "Q40", question: "Meaningful order: 1. Write, 2. Read, 3. Choosing topic, 4. Publish, 5. Format", options: ["A. 3, 5, 4, 1, 2", "B. 3, 5, 1, 4, 2", "C. 3, 4, 1, 5, 2", "D. 3, 1, 5, 4, 2"], answer: 3 },
+      { id: "Q41", question: "Odd one out:", options: ["A. (16, 24, 42)", "B. (34, 81, 61)", "C. (14, 23, 25)", "D. (18, 72, 81)"], answer: 2 },
+      { id: "Q42", question: "Queue of 30 boys: 22 in front of Kunal, 12 behind Rohit. Boys between Kunal and Rohit?", options: ["A. 3", "B. 4", "C. 6", "D. 5"], answer: 3 },
+      { id: "Q43", question: "Defective keyboard: A -> ABCA, B -> BACB, C -> ABCB. Typed 48 letter sequence: ABCCBAABCCBA... 100th character on screen?", options: ["A. A", "B. B", "C. C", "D. cannot be determined"], answer: 0 },
+      { id: "Q44", question: "Floor arrangement: A & E live on even floors. C above them. D above C. F not on bottom floor. B on remaining floor. Who lives on floor 3?", options: ["A. B", "B. C", "C. D", "D. F"], answer: 1 },
+      { id: "Q45", question: "Using same arrangement as Q44, who lives on floor 5?", options: ["A. D", "B. C", "C. F", "D. B"], answer: 2 },
+      { id: "Q46", question: "\"He is the only son of only daughter of my grandfather.\" How is Ram related to man in photograph?", options: ["A. Brother", "B. Cousin", "C. Brother-in-law", "D. Can't be determined"], answer: 0 },
+      { id: "Q47", question: "\"Kawan's grandson is the only son of my sister.\" How is Kawan related to Sheena (if Kawan has a wife)?", options: ["A. Father", "B. Father-in-law", "C. Uncle", "D. Cannot be determined"], answer: 0 },
+      { id: "Q48", question: "1st Jan 2000 was Saturday. First Monday in August 2005 falls on?", options: ["A. 1st", "B. 4th", "C. 3rd", "D. 6th"], answer: 0 },
+      { id: "Q49", question: "Time between 7 and 8 o'clock hands in same straight line but opposite?", options: ["A. 5(5/11) past 7", "B. 4(5/11) past 7", "C. 5(4/11) past 7", "D. 5(3/11) past 7"], answer: 0 },
+      { id: "Q50", question: "15 June 2007 was Sunday. Day on 14 July 2009?", options: ["A. Tuesday", "B. Friday", "C. Monday", "D. Thursday"], answer: 0 },
+      { id: "Q51", question: "Statements: All phones are desktops. All computers are televisions. No desktop is a computer.\nConclusions: I. Some televisions can be phones. II. No computer is a phone.", options: ["A. Only I", "B. Only II", "C. Neither", "D. Both I and II"], answer: 3 },
+      { id: "Q52", question: "3 friends know other two's result. Teacher says \"At least one failed\". None knew own result after statement.", options: ["A. One student failed.", "B. Two students failed.", "C. Two or more students failed.", "D. All three failed."], answer: 2 },
+      { id: "Q53", question: "Increase GDP by 40% to avoid economic collapse. Once 40% reached, 50% is easy. Which is true?", options: ["A. Economy fails if not able to increase by 50%", "B. GDP 50% increase if economy fails", "C. Economy will not fail if it can increase economy by 50%", "D. 10% increase not possible even after 40%"], answer: 2 },
+      { id: "Q54", question: "Weaken argument: \"Jadeja is bad batsman because he scored least on recent tour.\"", options: ["A. Exceptional bowling/fielding", "B. Started as bowler", "C. Played with experimental heavy bat by captain's order", "D. Top scorer 2 years ago"], answer: 2 },
+      { id: "Q55", question: "Course of action: Foreign national killed by uncontacted tribe after trespassing prohibited island.", options: ["A. Issue public apology and ensure no recurrence", "B. Arrest tribal people", "C. Explain foreign national was at fault for trespassing", "D. Conduct awareness camps for tribe"], answer: 2 },
+      { id: "Q56", question: "Assumption: Prevent tick infestation by keeping plumbing in good condition.", options: ["A. Ticks cannot be filtered from air", "B. House owners know plumbing", "C. Ticks cannot grow in dry areas", "D. Ticks do not cause moisture"], answer: 2 },
+      { id: "Q57", question: "Flaw in manager's plan: Rejecting exactly 50/200 shoes weekly to maintain standard assumes:", options: ["A. Cannot accept all shoes", "B. Quality won't improve if production reduced", "C. Each shoe reviewed is worthy", "D. The 150 accepted shoes will be of same quality week to week"], answer: 3 },
+      { id: "Q58", question: "Beas reserve passage on Indus river dolphins. Conclusion:", options: ["A. No human movement -> better water quality", "B. Good water quality -> higher spotting of aquatic life", "C. Dolphins rarest mammals, seen more if clean water", "D. All of the above"], answer: 3 },
+      { id: "Q59", question: "Statement: Children without proper care suffer malnutrition.\nConclusions: I. Malnutrition child deaths on rise since 2000. II. All malnourished children lacked care.", options: ["A. Only I", "B. Only II", "C. Both", "D. Neither"], answer: 3 },
+      { id: "Q60", question: "Statements: African countries face population rise & resource depletion.\nConclusions: I. Developing countries face similar problem today. II. Governments will struggle to provide quality of life.", options: ["A. Only I", "B. Only II", "C. Neither", "D. Both"], answer: 1 }
     ]
   }
 };
@@ -751,6 +968,7 @@ function startExam() {
   timeRemaining = 3600;
 
   document.getElementById('examSetup').style.display = 'none';
+  document.getElementById('examResultView').style.display = 'none';
   document.getElementById('examActive').style.display = 'block';
   document.getElementById('examTitle').textContent = `SNAP ${year} Official Test`;
 
@@ -847,11 +1065,75 @@ function clearAnswer() {
 
 function submitExam() {
   if (timerInterval) clearInterval(timerInterval);
-  const totalAnswered = Object.keys(examAnswers).length;
-  alert(`Test Submitted!\n\nQuestions Answered: ${totalAnswered} / ${activeExamQuestions.length}\nTime Taken: ${Math.floor((3600 - timeRemaining) / 60)} minutes.`);
   
-  document.getElementById('examSetup').style.display = 'block';
+  let correctCount = 0;
+  let incorrectCount = 0;
+  let unattemptedCount = 0;
+
+  activeExamQuestions.forEach((q, idx) => {
+    const userAns = examAnswers[idx];
+    if (userAns === undefined) {
+      unattemptedCount++;
+    } else if (userAns === q.answer) {
+      correctCount++;
+    } else {
+      incorrectCount++;
+    }
+  });
+
+  const timeTakenSec = 3600 - timeRemaining;
+  const takenMin = Math.floor(timeTakenSec / 60);
+  const takenSec = timeTakenSec % 60;
+
+  // Populate Scorecard UI
+  document.getElementById('resTotalScore').textContent = `${correctCount} / ${activeExamQuestions.length}`;
+  document.getElementById('resCorrect').textContent = correctCount;
+  document.getElementById('resIncorrect').textContent = incorrectCount;
+  document.getElementById('resTimeTaken').textContent = `${takenMin}m ${takenSec}s`;
+
+  // Render Review List
+  const reviewContainer = document.getElementById('reviewContainer');
+  reviewContainer.innerHTML = '';
+
+  activeExamQuestions.forEach((q, idx) => {
+    const userAns = examAnswers[idx];
+    let statusClass = 'unattempted';
+    let statusText = 'Unattempted';
+
+    if (userAns !== undefined) {
+      if (userAns === q.answer) {
+        statusClass = 'correct';
+        statusText = 'Correct';
+      } else {
+        statusClass = 'incorrect';
+        statusText = 'Incorrect';
+      }
+    }
+
+    const reviewDiv = document.createElement('div');
+    reviewDiv.className = `review-item ${statusClass}`;
+    
+    reviewDiv.innerHTML = `
+      <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px;">
+        <span>Q${idx + 1} [${q.id}] - ${sectionNames[q.section]}</span>
+        <span>Status: <strong style="color: var(--text);">${statusText}</strong></span>
+      </div>
+      <div style="font-weight: 500; margin-bottom: 8px; white-space: pre-line;">${q.question}</div>
+      <div style="font-size: 0.9rem; color: var(--text-muted);">
+        Your Answer: ${userAns !== undefined ? q.options[userAns] : '<span style="color: var(--danger);">None</span>'}<br>
+        Correct Answer: <strong style="color: var(--secondary);">${q.options[q.answer]}</strong>
+      </div>
+    `;
+    reviewContainer.appendChild(reviewDiv);
+  });
+
   document.getElementById('examActive').style.display = 'none';
+  document.getElementById('examResultView').style.display = 'block';
+}
+
+function resetToExamSetup() {
+  document.getElementById('examResultView').style.display = 'none';
+  document.getElementById('examSetup').style.display = 'block';
 }
 
 // Initial Practice Render
